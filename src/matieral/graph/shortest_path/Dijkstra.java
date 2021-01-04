@@ -4,6 +4,10 @@ package matieral.graph.shortest_path;
  * Test: https://leetcode.com/problems/network-delay-time/
  *
  * 	Consider vertices in increasing order of distance from s (non- tree vertex with the lowest distTo[] value)
+ *
+ * 	nonnegative weights
+ *
+ * 	O(VLogV) (with the use of Fibonacci heap).
  */
 
 import java.util.*;

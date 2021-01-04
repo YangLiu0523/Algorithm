@@ -2,8 +2,10 @@ package matieral.tree;
 
 /**
  * Ref: https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/
- * Test: https://leetcode.com/problems/range-sum-query-mutable/
- * Test: https://leetcode.com/problems/falling-squares/
+ * Test: https://leetcode.com/problems/range-sum-query-mutable/ => sum
+ * Test: https://leetcode.com/problems/falling-squares/ => max
+ *
+ * Merge操作不仅在最后一步
  *
  * Both the read and update queries now take O(log(n))
  * Build: O(n)
