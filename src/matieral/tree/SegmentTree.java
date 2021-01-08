@@ -10,6 +10,9 @@ package matieral.tree;
  * Both the read and update queries now take O(log(n))
  * Build: O(n)
  * Space: O(4*n)
+ *
+ * Reference: https://leetcode.com/problems/falling-squares/discuss/762418/The-Easiest-Java-Segmentation-Tree-with-Lazy-Propagation.
+ * 以tree的形式完成
  */
 
 class SegmentTree {

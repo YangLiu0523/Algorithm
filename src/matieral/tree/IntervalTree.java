@@ -3,12 +3,8 @@ import java.util.*;
 
 /**
  * Test: https://leetcode.com/problems/merge-intervals/
+ * Reference : https://leetcode.com/problems/merge-intervals/discuss/21452/Share-my-interval-tree-solution-no-sorting
  *
- * 变体： https://leetcode.com/problems/falling-squares/
- * sum 变 max, update delta 变 update value
- *
- * Reference: https://leetcode.com/problems/falling-squares/discuss/762418/The-Easiest-Java-Segmentation-Tree-with-Lazy-Propagation.
- * 以tree的形式完成
  */
 
 class IntervalTreeNode {
