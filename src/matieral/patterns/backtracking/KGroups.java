@@ -3,6 +3,8 @@ import java.util.*;
 
 /**
  * Test: https://leetcode.com/problems/find-minimum-time-to-finish-all-jobs/
+ * Test: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+ * Test: https://leetcode.com/problems/matchsticks-to-square/
  */
 
 public class KGroups {
