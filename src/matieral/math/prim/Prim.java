@@ -1,4 +1,4 @@
-package matieral.prim;
+package matieral.math.prim;
 
 import java.util.*;
 
