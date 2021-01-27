@@ -21,6 +21,8 @@ import java.util.*;
  * After Total Nodes -1 passes through all edges you will end up with shortest paths from source node to all the other nodes.
  *
  * O(VE)
+ * In practice, the final distances can usually be found faster than in n−1 rounds.
+ * Thus, a possible way to make the algorithm more efficient is to stop the algorithm if no distance can be reduced during a round.
  */
 
 public class BellmanFord {
