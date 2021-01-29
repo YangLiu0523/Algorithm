@@ -3,6 +3,10 @@ package matieral.graph;
 /**
  * Test: https://leetcode.com/problems/course-schedule-ii/
  *
+ * During the BFS trimming process, we will trim out almost all the nodes v and edges v - 1 from the edges.
+ * Therefore, it would take us around O(v)operations to reach the centroids.
+ *
+ * Space: O(v)
  */
 
 import java.util.*;

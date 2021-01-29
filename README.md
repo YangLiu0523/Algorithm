@@ -18,3 +18,18 @@ Arrays.asList() and Arrays.sort() both use Integer[] instead of int[]
 
 ## Big O
 http://souravsengupta.com/cds2016/lectures/Complexity_Cheatsheet.pdf
+
+
+##
+
+-2147483648 ~ 2147483647
+
+### Graph Representation
+```
+# Unweighted
+List<Integer>[] adj = new ArrayList<>();
+
+# Weighted
+Map<Integer, List<int[]>> adj = new HashMap<>();
+```
+

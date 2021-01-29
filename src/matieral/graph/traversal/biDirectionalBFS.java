@@ -1,4 +1,4 @@
-package matieral.graph;
+package matieral.graph.traversal;
 import java.util.*;
 
 /**

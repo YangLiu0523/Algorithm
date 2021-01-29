@@ -1,4 +1,5 @@
-package matieral.graph;
+package matieral.graph.traversal;
+import matieral.common_use.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -17,7 +18,6 @@ public class IterativeDFS {
             root = stack.pop();
             root = root.right;
         }
-
     }
 }
 

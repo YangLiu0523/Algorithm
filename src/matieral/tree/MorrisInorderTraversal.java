@@ -11,19 +11,20 @@ import java.util.*;
  * lastHandled is different from the predecessor, 1 和 5 就没有出现在predecessor里面，因为left == null 没有必要做这件事
  */
 
-class TreeNode {
-    int data;
-    TreeNode left_node, right_node;
 
-    TreeNode(int item)
-    {
-        data = item;
-        left_node =  null;
-        right_node = null;
-    }
-}
 
 public class MorrisInorderTraversal {
+    class TreeNode {
+        int data;
+        TreeNode left_node, right_node;
+
+        TreeNode(int item)
+        {
+            data = item;
+            left_node =  null;
+            right_node = null;
+        }
+    }
     TreeNode root;
 
     List<Integer> inorder = new ArrayList<>();
@@ -75,11 +76,11 @@ public class MorrisInorderTraversal {
     public static void main(String args[])
     {
         MorrisInorderTraversal tree = new MorrisInorderTraversal();
-        tree.root = new TreeNode(4);
-        tree.root.left_node = new TreeNode(2);
-        tree.root.right_node = new TreeNode(5);
-        tree.root.left_node.left_node = new TreeNode(1);
-        tree.root.left_node.right_node = new TreeNode(3);
+//        tree.root = new TreeNode(4);
+//        tree.root.left_node = new TreeNode(2);
+//        tree.root.right_node = new TreeNode(5);
+//        tree.root.left_node.left_node = new TreeNode(1);
+//        tree.root.left_node.right_node = new TreeNode(3);
 
         tree.Morris(tree.root);
         System.out.println(tree.inorder);
