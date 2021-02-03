@@ -1,4 +1,4 @@
-package matieral.dp.bit;
+package matieral.dp;
 
 /**
  * Test: https://leetcode.com/problems/parallel-courses/

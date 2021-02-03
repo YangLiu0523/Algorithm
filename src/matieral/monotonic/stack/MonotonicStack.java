@@ -1,19 +1,21 @@
-package matieral.monotonic;
+package matieral.monotonic.stack;
 import java.util.*;
 
 /**
  * Test: https://leetcode.com/problems/daily-temperatures/
- * Test: https://leetcode.com/problems/jump-game-v/
+ * Test: https://leetcode.com/problems/jump-game-v/ => not typical
  * Test: https://leetcode.com/problems/odd-even-jump/ => not typical
  *
  * Reference: https://leetcode.com/problems/odd-even-jump/discuss/977074/Java-mono-Stack-easy-understanding
  *
- * normal mono stack you used before can find the first bigger/smaller elements on the right and left(depending on increasing or decreasing mono stack you use).
+ * normal mono stack you used before can find the first bigger/smaller elements on the right and left
+ * (depending on increasing or decreasing mono stack you use).
+ *
  * Use decreasing mono stack here can help us find the first bigger index.
  */
 
 public class MonotonicStack {
-    public int[] dailyTemperatures(int[] T) {
+    public int[] dailyTemperatures(int[] T) { // Decrease => Plain
         int[] ret = new int[T.length];
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = T.length - 1; i >= 0; i--) {
@@ -26,7 +28,7 @@ public class MonotonicStack {
         return ret;
     }
 
-    public int maxJumps(int[] arr, int d) {
+    public int maxJumps(int[] arr, int d) { // Decrease
         Deque<Integer> stack = new ArrayDeque<>();
         int[] maxSteps = new int[arr.length];
         Arrays.fill(maxSteps, 1);

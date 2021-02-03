@@ -32,6 +32,7 @@ public class KMP {
     }
 
     public int[] build(String p) {
+        // length of the longest prefix (0, i - 1)
         int[] next = new int[p.length() + 1];
         int nextIdx = 2;
         for (int i =1, j = 0; i < p.length(); i++) {
