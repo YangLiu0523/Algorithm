@@ -9,6 +9,7 @@ package matieral.sort;
  * https://leetcode.com/problems/median-of-two-sorted-arrays/, 这个的边界也很有趣
  * 我觉得只有不确定当前的具体情况的时候， 是不可以 mid + 1 / mid - 1 的, 同时也要使用 < 而不是 <=
  */
+
 public class BitonicArrayMaximum {
     public int peakIndexInMountainArray(int[] arr) {
         int left = 0, right = arr.length - 1;

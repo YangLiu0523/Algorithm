@@ -1,4 +1,4 @@
-package matieral.sort;
+package matieral.sort.binarySearch;
 
 /**
  * Test: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
