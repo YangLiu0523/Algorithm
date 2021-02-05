@@ -1,6 +1,6 @@
 # Round 699
 [tutorial](https://codeforces.com/blog/entry/87523)
-[contest](Contest: https://codeforces.com/contest/1481)
+[contest](https://codeforces.com/contest/1481)
  
 ## A - Space Navigation
 normal
