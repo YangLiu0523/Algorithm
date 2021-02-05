@@ -6,7 +6,7 @@ package matieral.sort;
  * 常见错误： https://leetcode.com/submissions/detail/436501211/
  * 千万不要做 l = 0, r = 1, mid = 0,  l = mid 这样的事。 mid 本来就偏小， l = mid 很可能就不变了
  * r = mid 可以!!!!!， l 不要 = mid
- * https://leetcode.com/problems/median-of-two-sorted-arrays/, 这个的边界也很有趣
+ *
  * 我觉得只有不确定当前的具体情况的时候， 是不可以 mid + 1 / mid - 1 的, 同时也要使用 < 而不是 <=
  */
 

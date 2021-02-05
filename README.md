@@ -49,3 +49,17 @@ Bit
 n &= (n - 1) // remove the least significant 1-bit
 
 numer = 0, denom
+
+
+StringBuilder append 在后面， insert可以在特定位置
+
+
+```
+String s = "\\";
+System.out.println(s.length()); // 1
+// System.out.println(s.matches("\\")); // invalid
+System.out.println(s.matches("\\\\")); // true
+
+Step one: code to string
+Step two: string to regex
+```
