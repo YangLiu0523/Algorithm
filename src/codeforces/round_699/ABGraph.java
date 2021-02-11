@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-
 // 答案的解法比我快多了，但是不好想
 public class ABGraph {
     MyScanner scanner = new MyScanner();
