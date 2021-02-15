@@ -65,3 +65,15 @@ Step two: string to regex
 ```
 
 [DP todo](https://leetcode.com/discuss/general-discussion/1050391/must-do-dynamic-programming-problems-category-wise)
+
+
+```
+# use 
+Arrays.sort(points, (a, b)-> Integer.compare(a[0], b[0]));
+
+# not 
+// Arrays.sort(points, (a, b)-> a - b);
+
+Error case:
+[[-2147483646,-2147483645],[2147483646,2147483647]]
+```

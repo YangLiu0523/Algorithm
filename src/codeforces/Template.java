@@ -1,59 +1,21 @@
+package codeforces;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.util.*;
 
-
-/**
- * Case: 1 1 2 3 1 1 1
- */
-
-
-public class PaintingtheArrayII {
+public class Template {
     MyScanner scanner = new MyScanner();
 
-    public int findMin(int n, int[] arr) { // maximum
-        int[] next = new int[n];
-        int[] pos = new int[n + 1];
-        Arrays.fill(pos, n + 1);
-        for (int i = n - 1; i >= 0; i--) {
-            next[i] = pos[arr[i]];
-            pos[arr[i]] = i;
-        }
 
-        int x = -1, y = -1, ret = 0;
-        for (int i = 0; i < n; i++) {
-            if (x >= 0 && arr[x] == arr[i] || y >= 0 && arr[y] == arr[i]) {
-                continue;
-            }
-            else if (x == -1 || y == -1) {
-                ret++;
-                if (x == -1) x = i;
-                else y = i;
-            }
-            else {
-                ret++;
-                if (next[x] > next[y]) {
-                    x = i;
-                }
-                else {
-                    y = i;
-                }
-            }
-        }
-        return ret;
-    }
 
     public static void main(String[] args) {
-        PaintingtheArrayII test = new PaintingtheArrayII();
-        int n = test.scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = test.scanner.nextInt();
+        Template test = new Template();
+        int t = test.scanner.nextInt();
+        for (int i = 0; i < t; i++) {
+            int numTeams = test.scanner.nextInt();
         }
-        int ans = test.findMin(n, arr);
-        System.out.println(ans);
     }
 
     class MyScanner {
@@ -77,6 +39,14 @@ public class PaintingtheArrayII {
 
         int nextInt() {
             return Integer.parseInt(next());
+        }
+
+        int[] nextIntArray(int len) {
+            int[] arr = new int[len];
+            for (int i = 0; i < len; i++) {
+                arr[i] = nextInt();
+            }
+            return arr;
         }
 
         long nextLong() {

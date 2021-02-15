@@ -35,10 +35,11 @@ public class Schedule {
         return takenCourses;
     }
 
+    // Ref: https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/discuss/510263/JavaC%2B%2BPython-Priority-Queue
     public int maxEvents(int[][] events) {
         int n = events.length;
         Arrays.sort(events, (e1, e2) -> e1[0] - e2[0]);
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();//current open events,  greedily attend the event that ends soonest
         int canAttend = 0, i = 0;
         for (int d = 1; d <= 100000; d++) {
             while (!pq.isEmpty() && pq.peek() < d) {
@@ -137,21 +138,6 @@ public class Schedule {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
-    }
-
-    public int minMeetingRooms(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> a - b);
-        int rooms = 0;
-        for (int[] inter : intervals) {
-            if (!pq.isEmpty() && pq.peek() <= inter[0]) {
-                pq.poll();
-            }
-
-            pq.offer(inter[1]);
-            rooms = Math.max(rooms, pq.size());
-        }
-        return rooms;
     }
 
     public List<Integer> minAvailableDuration(int[][] slots1, int[][] slots2, int duration) {

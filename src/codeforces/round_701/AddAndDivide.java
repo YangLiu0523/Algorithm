@@ -1,59 +1,37 @@
+package codeforces.round_701;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.util.*;
 
-
-/**
- * Case: 1 1 2 3 1 1 1
- */
-
-
-public class PaintingtheArrayII {
+public class AddAndDivide {
     MyScanner scanner = new MyScanner();
 
-    public int findMin(int n, int[] arr) { // maximum
-        int[] next = new int[n];
-        int[] pos = new int[n + 1];
-        Arrays.fill(pos, n + 1);
-        for (int i = n - 1; i >= 0; i--) {
-            next[i] = pos[arr[i]];
-            pos[arr[i]] = i;
-        }
+    private int findMin(int a, int b) {
+        int min = Integer.MAX_VALUE;
 
-        int x = -1, y = -1, ret = 0;
-        for (int i = 0; i < n; i++) {
-            if (x >= 0 && arr[x] == arr[i] || y >= 0 && arr[y] == arr[i]) {
-                continue;
+        for (int secOp = b == 1 ? 1 : 0; secOp <= 30; secOp++) {
+            int tmpB = secOp + b, tmpA = a;
+            int firstOp = 0;
+            while (tmpA != 0) {
+                tmpA /= tmpB;
+                firstOp++;
             }
-            else if (x == -1 || y == -1) {
-                ret++;
-                if (x == -1) x = i;
-                else y = i;
-            }
-            else {
-                ret++;
-                if (next[x] > next[y]) {
-                    x = i;
-                }
-                else {
-                    y = i;
-                }
-            }
+            min = Math.min(min, firstOp + secOp);
         }
-        return ret;
+        return min;
     }
 
+
     public static void main(String[] args) {
-        PaintingtheArrayII test = new PaintingtheArrayII();
-        int n = test.scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = test.scanner.nextInt();
+        AddAndDivide test = new AddAndDivide();
+        int t = test.scanner.nextInt();
+        for (int i = 0; i < t; i++) {
+            int a = test.scanner.nextInt(), b = test.scanner.nextInt();
+            int res = test.findMin(a, b);
+            System.out.println(res);
         }
-        int ans = test.findMin(n, arr);
-        System.out.println(ans);
     }
 
     class MyScanner {

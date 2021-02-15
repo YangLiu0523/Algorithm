@@ -1,59 +1,26 @@
+package codeforces.round_701;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.util.*;
 
-
-/**
- * Case: 1 1 2 3 1 1 1
- */
-
-
-public class PaintingtheArrayII {
+public class ReplaceAndKeepSorted {
     MyScanner scanner = new MyScanner();
 
-    public int findMin(int n, int[] arr) { // maximum
-        int[] next = new int[n];
-        int[] pos = new int[n + 1];
-        Arrays.fill(pos, n + 1);
-        for (int i = n - 1; i >= 0; i--) {
-            next[i] = pos[arr[i]];
-            pos[arr[i]] = i;
-        }
-
-        int x = -1, y = -1, ret = 0;
-        for (int i = 0; i < n; i++) {
-            if (x >= 0 && arr[x] == arr[i] || y >= 0 && arr[y] == arr[i]) {
-                continue;
-            }
-            else if (x == -1 || y == -1) {
-                ret++;
-                if (x == -1) x = i;
-                else y = i;
-            }
-            else {
-                ret++;
-                if (next[x] > next[y]) {
-                    x = i;
-                }
-                else {
-                    y = i;
-                }
-            }
-        }
-        return ret;
-    }
-
     public static void main(String[] args) {
-        PaintingtheArrayII test = new PaintingtheArrayII();
-        int n = test.scanner.nextInt();
+        ReplaceAndKeepSorted test = new ReplaceAndKeepSorted();
+        int n = test.scanner.nextInt(), q = test.scanner.nextInt(), k = test.scanner.nextInt();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = test.scanner.nextInt();
         }
-        int ans = test.findMin(n, arr);
-        System.out.println(ans);
+
+        for (int i = 0; i < q; i++) {
+            int l = test.scanner.nextInt() - 1, r = test.scanner.nextInt() - 1;
+            int ans = k + (arr[r] - arr[l] + 1) - 2 * (r - l + 1);
+            System.out.println(ans);
+        }
     }
 
     class MyScanner {
