@@ -6,7 +6,6 @@ import java.util.*;
  * Test: https://leetcode.com/problems/gas-station/
  * Test: https://leetcode.com/problems/super-washing-machines/
  * Test: https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks/
- *
  */
 
 public class Linear {
@@ -46,5 +45,19 @@ public class Linear {
             max =  Math.max(max, left + right);
         }
         return max;
+    }
+
+    public int minimumEffort(int[][] tasks) {
+        Arrays.sort(tasks, (a, b) -> b[1] - b[0] - (a[1] - a[0]));
+        int curr = 0, add = 0;
+        for (int[] task : tasks) {
+            if (curr < task[1]) {
+                add += task[1] - curr;
+                curr = task[1];
+            }
+            curr -= task[0];
+        }
+
+        return add;
     }
 }

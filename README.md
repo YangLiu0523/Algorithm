@@ -77,3 +77,12 @@ Arrays.sort(points, (a, b)-> Integer.compare(a[0], b[0]));
 Error case:
 [[-2147483646,-2147483645],[2147483646,2147483647]]
 ```
+
+Don't use iterator and modify the collection at the same time
+
+
+## Check whether is pow 2
+𝑛&(𝑛−1)=0
+
+
+nteger.valueOf(b.charAt(0)) 是错误的！
