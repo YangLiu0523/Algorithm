@@ -81,9 +81,6 @@ Error case:
 Don't use iterator and modify the collection at the same time
 
 
-## Check whether is pow 2
-𝑛&(𝑛−1)=0
-
 
 nteger.valueOf(b.charAt(0)) 是错误的！
 
@@ -91,4 +88,46 @@ nteger.valueOf(b.charAt(0)) 是错误的！
         
         
                 for (int i = 1; i < n; i++) { 要小心
+                
+                
+### Number range
+32 bit: -2^31 ~ 2^31 - 1 or -2 * 10^9 ~ 2 * 10^9  
+64 bit: -2^63 ~ 2^63 - 1 or -9 * 10^18 ~ 9 * 10^18  
+Common error: 
+```
+int a = 1000000000;
+// long b = a * a; => Error!
+long b = (long)a * a;
+System.out.println(b);
 
+```
+1e-9, 1e9
+
+### Mathmatics
+sum(1, 2, 3, ... n ) = n * (n + 1) / 2\
+sum(1<sup>2</sup>, 2<sup>2</sup>, ..., n<sup>2</sup>) = n * (n + 1) * (2n + 1) / 6\
+arithmetic progression: (a + b) * n / 2, For example(3, 7, 11, 15)\
+geometric progression: a + ak + ak<sup>2</sup> + ak<sup>3</sup> + ...+ b = (bk - a) / (k - 1)\
+Special case: 1 + 2 + 2<sup>3</sup> + 2<sup>4</sup> + ... + 2<sup>n-1</sup> = 2<sup>n</sup> - 1\
+harmonic sum: 1 + 1/2 + 1/3 + ... + 1/n <= 1 + log2(n)
+
+[Permutation](https://github.com/YangLiu0523/Algorithm/blob/master/src/matieral/math/PermutationFormula.java)\
+C(k, n) = C(k - 1, n - 1)  + C(k, n - 1)\
+A(k, n) = (A(k - 1, n - 1) * A(1, n))\
+H(k, n) = C(k, n + k - 1)
+
+[Prim](https://github.com/YangLiu0523/Algorithm/blob/master/src/matieral/math/prim/Prim.java)
+
+```
+public int gcd(int a, int b) {
+    return b > 0 ? gcd(b, a % b) : a;
+}
+
+public boolean isTwoPow(int i) {
+    return (i & (i - 1)) == 0;
+}
+```
+
+### Time Complexity
+a modern computer can perform some hundreds of millions of operations in a second.\
+PriorityQueue: Insertion and removal take O(logn) time, and retrieval takes O(1) time.

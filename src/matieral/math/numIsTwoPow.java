@@ -7,6 +7,6 @@ package matieral.math;
 public class numIsTwoPow {
 
     public boolean isTwoPow(int i) {
-        return Math.pow(2, (int) (Math.log(i) / Math.log(2))) == i;
+        return (i & (i - 1)) == 0;
     }
 }
