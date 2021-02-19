@@ -1,20 +1,42 @@
-package codeforces;
+package codeforces.round_703;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Template {
+public class GuessingTheGreatestHard {
     MyScanner scanner = new MyScanner();
 
-
-
-    public static void main(String[] args) {
-        Template test = new Template();
-        int t = test.scanner.nextInt();
-        for (int i = 0; i < t; i++) {
-            int n = test.scanner.nextInt();
+    private int solve(int n) {
+        int start = 0, end = n - 1;
+        int secMax = ask(start, end);
+        boolean maxIsRight = secMax == 0 || secMax != end && ask(secMax, end) == secMax;
+        if (maxIsRight) {// Guess Right
+            while (start <= end) {
+                int mid = start + (end - start) / 2;
+                if (mid == 0 || ask(0, mid) != secMax) {
+                    start = mid + 1;
+                }
+                else {
+                    end = mid - 1;
+                }
+            }
+            return start;
+        }
+        else {
+            start = 0;
+            end = n - 1;
+            while (start <= end) {
+                int mid = start + (end - start) / 2;
+                if (mid == n - 1 || ask(mid, n - 1) != secMax) {
+                    end = mid - 1;
+                }
+                else {
+                    start = mid + 1;
+                }
+            }
+            return end;
         }
     }
 
@@ -30,13 +52,14 @@ public class Template {
         System.out.flush();
     }
 
-    private void print(boolean b, String s1, String s2) {
-        if (b) {
-            System.out.println(s1);
-        }
-        else {
-            System.out.println(s2);
-        }
+    public static void main(String[] args) {
+        GuessingTheGreatestHard test = new GuessingTheGreatestHard();
+//        int t = test.scanner.nextInt();
+//        for (int i = 0; i < t; i++) {
+        int n = test.scanner.nextInt();
+        int ans = test.solve(n);
+        test.print(ans);
+//        }
     }
 
     class MyScanner {

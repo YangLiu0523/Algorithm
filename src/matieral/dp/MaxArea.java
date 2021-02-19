@@ -4,7 +4,6 @@ import java.util.*;
  * Test: https://leetcode.com/problems/maximal-square/
  * Test: https://leetcode.com/problems/maximal-rectangle/
  * Test: https://leetcode.com/problems/largest-plus-sign/
- *
  */
 
 public class MaxArea {

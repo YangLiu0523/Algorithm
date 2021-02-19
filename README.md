@@ -86,3 +86,9 @@ Don't use iterator and modify the collection at the same time
 
 
 nteger.valueOf(b.charAt(0)) 是错误的！
+
+        Arrays.fill(dp, new HashMap<>());太可怕了
+        
+        
+                for (int i = 1; i < n; i++) { 要小心
+

@@ -1,41 +1,44 @@
-package codeforces;
+package codeforces.round_703;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Template {
+public class EasternExhibition {
     MyScanner scanner = new MyScanner();
 
+    private long solve(int[] xLoc, int[] yLoc, int n){
+        if (n % 2 == 1) {
+            return 1;
+        }
+        else {
+            Arrays.sort(xLoc);
+            Arrays.sort(yLoc);
 
+            int xStart = xLoc[n / 2 - 1], xEnd = xLoc[n / 2];
+            int yStart = yLoc[n / 2 - 1], yEnd = yLoc[n / 2];
+
+            long xRange = xEnd - xStart + 1, yRange = yEnd - yStart + 1;
+            return xRange * yRange;
+
+        }
+    }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        EasternExhibition test = new EasternExhibition();
         int t = test.scanner.nextInt();
         for (int i = 0; i < t; i++) {
             int n = test.scanner.nextInt();
-        }
-    }
-
-    private int ask(int l, int r) {
-        System.out.println("? " + (l + 1) + " " + (r + 1));
-        System.out.flush();
-        int ans = scanner.nextInt();
-        return ans - 1;
-    }
-
-    private void print(int n) {
-        System.out.println("! " + (n + 1));
-        System.out.flush();
-    }
-
-    private void print(boolean b, String s1, String s2) {
-        if (b) {
-            System.out.println(s1);
-        }
-        else {
-            System.out.println(s2);
+            int[] xLoc = new int[n];
+            int[] yLoc = new int [n];
+            for (int j = 0; j < n; j++) {
+                xLoc[j] = test.scanner.nextInt();
+                yLoc[j] = test.scanner.nextInt();
+            }
+            long ans = test.solve(xLoc, yLoc, n);
+            System.out.println(ans);
         }
     }
 

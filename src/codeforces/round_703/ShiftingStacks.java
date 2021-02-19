@@ -1,41 +1,45 @@
-package codeforces;
+package codeforces.round_703;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Template {
+public class ShiftingStacks {
     MyScanner scanner = new MyScanner();
 
+    private boolean solve(int n, int[] arr) {
+//        if (n == 1) return true;
 
+        int target = n * (n - 1) / 2;
+
+        long sum = arr[0];
+        for (int i = 0; i < n; i++) {
+            int curr = (i) * (i + 1) / 2;
+            sum += arr[i];
+            if (sum < curr) {
+                return false;
+            }
+            if (sum >= target) {
+                return true;
+            }
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        ShiftingStacks test = new ShiftingStacks();
         int t = test.scanner.nextInt();
         for (int i = 0; i < t; i++) {
-            int n = test.scanner.nextInt();
-        }
-    }
-
-    private int ask(int l, int r) {
-        System.out.println("? " + (l + 1) + " " + (r + 1));
-        System.out.flush();
-        int ans = scanner.nextInt();
-        return ans - 1;
-    }
-
-    private void print(int n) {
-        System.out.println("! " + (n + 1));
-        System.out.flush();
-    }
-
-    private void print(boolean b, String s1, String s2) {
-        if (b) {
-            System.out.println(s1);
-        }
-        else {
-            System.out.println(s2);
+            int h = test.scanner.nextInt();
+            int[] arr = test.scanner.nextIntArray(h);
+            boolean ans = test.solve(h, arr);
+            if (ans) {
+                System.out.println("YES");
+            }
+            else {
+                System.out.println("NO");
+            }
         }
     }
 
