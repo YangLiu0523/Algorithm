@@ -91,8 +91,8 @@ nteger.valueOf(b.charAt(0)) 是错误的！
                 
                 
 ### Number range
-32 bit: -2^31 ~ 2^31 - 1 or -2 * 10^9 ~ 2 * 10^9  
-64 bit: -2^63 ~ 2^63 - 1 or -9 * 10^18 ~ 9 * 10^18  
+32 bit: -2<sup>31</sup> ~ 2<sup>31</sup> - 1 or -2*10<sup>9</sup> ~ 2*10<sup>9</sup>\
+64 bit: -2<sup>63</sup> ~ -2<sup>63</sup> - 1 or -9 * 10<sup>18</sup> ~ 9 * 10<sup>18</sup>  
 Common error: 
 ```
 int a = 1000000000;
@@ -113,7 +113,7 @@ harmonic sum: 1 + 1/2 + 1/3 + ... + 1/n <= 1 + log2(n)
 
 [Permutation](https://github.com/YangLiu0523/Algorithm/blob/master/src/matieral/math/PermutationFormula.java)\
 C(k, n) = C(k - 1, n - 1)  + C(k, n - 1)\
-A(k, n) = (A(k - 1, n - 1) * A(1, n))\
+A(k, n) = A(k - 1, n - 1) * A(1, n)\
 H(k, n) = C(k, n + k - 1)
 
 [Prim](https://github.com/YangLiu0523/Algorithm/blob/master/src/matieral/math/prim/Prim.java)
@@ -131,3 +131,51 @@ public boolean isTwoPow(int i) {
 ### Time Complexity
 a modern computer can perform some hundreds of millions of operations in a second.\
 PriorityQueue: Insertion and removal take O(logn) time, and retrieval takes O(1) time.
+
+
+1 << n
+
+Make sure compare start value makes sense, especially when not start with the first elements
+[example](https://leetcode.com/problems/maximum-subarray/)
+```
+int maxSum = nums[0], sum = nums[0]; // Error prone
+```
+
+Test Map contains don't forget to use containsKey instead of contains
+```$xslt
+cache.containsKey(target - nums[i])
+```
+
+Can't suppose Tree length is lgn, because it might be unbalanced tree
+
+Careful about update point status in BFS\
+if (!udpated) ..   [Example](https://leetcode.com/problems/map-of-highest-peak/)
+
+Take care of whether the array is sorted
+
+Arrays.asList 不要加<>
+
+Duplicate, remember to che whether is idx dup or value dup
+
+If dealing with tree, prefer to use parent instead of visited array.\
+just need to assert whether it is parent [Example](https://leetcode.com/problems/tree-of-coprimes/)
+
+Distinguish between two pointer and sliding window
+
+Sliding window, mention left boundary subtraction [Example](https://leetcode.com/problems/subarray-sum-equals-k/)
+
+During mod operation, take care of negative element [Example](https://leetcode.com/problems/subarray-sums-divisible-by-k/)
+```
+sum = (a + sum) % K;
+if (sum < 0) sum += K;
+```
+
+Array of Integer, think sorted / neg or pos
+
+### Vocabulary
+Ancestor
+dividend / divisor = quotient ... remainder
+numerator / denominator
+
+
+

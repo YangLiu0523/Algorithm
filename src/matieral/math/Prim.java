@@ -6,27 +6,9 @@ import java.util.*;
  * Test: https://leetcode.com/problems/count-ways-to-make-array-with-product/
  * Test: https://leetcode.com/problems/count-primes/
  * Test: https://leetcode.com/problems/factor-combinations/
- * Test:
  */
 
 public class Prim {
-    public List<Integer> primeDecompose(int num) {
-        List<Integer> primeFactors = new ArrayList<Integer>();
-        int factor = 2;
-
-        while (factor * factor <= num) {
-            if (num % factor == 0) {
-                primeFactors.add(factor);
-                num = num / factor;
-            } else {
-                factor++;
-            }
-        }
-
-        primeFactors.add(num);
-        return primeFactors;
-    }
-
     public int countPrimes(int n) {
         boolean[] marked = new boolean[n];
         for(int i = 2; i * i < n; i++) {
@@ -42,6 +24,23 @@ public class Prim {
             if (!marked[i]) cnt++;
         }
         return cnt;
+    }
+
+    public List<Integer> primeDecompose(int num) {
+        List<Integer> primeFactors = new ArrayList<Integer>();
+        int factor = 2;
+
+        while (factor * factor <= num) {
+            if (num % factor == 0) {
+                primeFactors.add(factor);
+                num = num / factor;
+            } else {
+                factor++;
+            }
+        }
+
+        primeFactors.add(num);
+        return primeFactors;
     }
 
     public List<List<Integer>> getFactors(int n) {
