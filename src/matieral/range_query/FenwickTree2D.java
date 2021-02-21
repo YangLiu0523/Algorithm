@@ -1,4 +1,4 @@
-package matieral.tree;
+package matieral.range_query;
 
 /**
  * Test: https://leetcode.com/problems/range-sum-query-2d-mutable/

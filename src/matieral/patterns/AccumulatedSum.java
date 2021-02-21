@@ -8,6 +8,8 @@ import java.util.Map;
  * Test: https://leetcode.com/problems/continuous-subarray-sum/ => Cute question
  * Test: https://leetcode.com/problems/subarray-sums-divisible-by-k/
  * Test: https://leetcode.com/problems/make-sum-divisible-by-p/
+ * Test: https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/
+ * Test: https://leetcode.com/problems/longest-harmonious-subsequence/
  */
 
 public class AccumulatedSum {
@@ -81,5 +83,32 @@ public class AccumulatedSum {
         }
 
         return removed < A.length ? removed : -1;
+    }
+
+    public int numPairsDivisibleBy60(int[] time) {
+        int remainders[] = new int[60];
+        int count = 0;
+        for (int t: time) {
+            if (t % 60 == 0) { // check if a%60==0 && b%60==0
+                count += remainders[0];
+            } else { // check if a%60+b%60==60
+                count += remainders[60 - t % 60];
+            }
+            remainders[t % 60]++; // remember to update the remainders
+        }
+        return count;
+    }
+
+    public int findLHS(int[] nums) {
+        HashMap<Integer, Integer > map = new HashMap < > ();
+        int res = 0;
+        for (int num: nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+            if (map.containsKey(num + 1))
+                res = Math.max(res, map.get(num) + map.get(num + 1));
+            if (map.containsKey(num - 1))
+                res = Math.max(res, map.get(num) + map.get(num - 1));
+        }
+        return res;
     }
 }

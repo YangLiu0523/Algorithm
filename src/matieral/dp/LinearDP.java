@@ -3,6 +3,8 @@ import java.util.*;
 import matieral.common_use.*;
 
 /**
+ * Test:
+ * Test: https://leetcode.com/problems/coin-change-2/
  * Test: https://leetcode.com/problems/paint-fence/ => Like
  * Test: https://leetcode.com/problems/paint-house/
  * Test: https://leetcode.com/problems/paint-house-ii/ => Like
@@ -12,6 +14,21 @@ import matieral.common_use.*;
  */
 
 public class LinearDP {
+
+    public int change(int amount, int[] coins) {
+        Arrays.sort(coins);
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                if (dp[i - coin] != 0) {
+                    dp[i] += dp[i - coin];
+                }
+            }
+        }
+        return dp[amount];
+    }
+
     public int numWays(int n, int k) {
         if (n == 0) return 0;
         if (n == 1) return k;

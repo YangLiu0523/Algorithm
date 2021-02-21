@@ -1,8 +1,8 @@
-package matieral.monotonic;
+package matieral.patterns.monotonic;
 import java.util.*;
 
 /**
- * Test:https://leetcode.com/problems/sliding-window-maximum/
+ * Test: https://leetcode.com/problems/sliding-window-maximum/
  * Test: https://leetcode.com/problems/jump-game-vi/
  *
  * Related with sliding window, find max/ min value in selected interval
@@ -55,7 +55,7 @@ public class MonotonicQueue {
                 queue.pollFirst();
             }
 
-            int val = queue.peekFirst()[0] + nums[i];
+            int val = queue.peekFirst()[0] + nums[i]; // peekFirst() => cool trick
             while (!queue.isEmpty() && queue.peekLast()[0] < val) {
                 queue.pollLast();
             }

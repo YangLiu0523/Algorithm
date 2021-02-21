@@ -1,4 +1,4 @@
-package matieral.monotonic.stack;
+package matieral.patterns.monotonic.stack;
 import java.util.*;
 
 /**

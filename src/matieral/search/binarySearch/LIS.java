@@ -1,4 +1,4 @@
-package matieral.sort.binarySearch;
+package matieral.search.binarySearch;
 import java.util.*;
 
 /**

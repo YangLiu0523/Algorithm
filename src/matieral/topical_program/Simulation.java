@@ -1,7 +1,8 @@
-package matieral;
+package matieral.topical_program;
 
 /**
  * Test: https://leetcode.com/problems/pour-water/
+ * Test: https://leetcode.com/problems/squirrel-simulation/
  */
 
 public class Simulation {
@@ -38,5 +39,16 @@ public class Simulation {
 //            System.out.println(Arrays.toString(heights));
         }
         return heights;
+    }
+
+    public int minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts) {
+        int ans = 0, minDelta = height + width;
+        for (int i = 0; i < nuts.length; i++) {
+            int distTree = Math.abs(nuts[i][0] - tree[0]) + Math.abs(nuts[i][1] - tree[1]);
+            int distSq = Math.abs(nuts[i][0] - squirrel[0]) + Math.abs(nuts[i][1] - squirrel[1]);
+            minDelta = Math.min(minDelta, distSq - distTree);
+            ans +=  2 * distTree;
+        }
+        return ans + minDelta;
     }
 }

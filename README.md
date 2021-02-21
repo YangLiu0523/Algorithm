@@ -128,6 +128,10 @@ public boolean isTwoPow(int i) {
 }
 ```
 
+Remember binary search to validate the guess if no clue how to find the answer [example1](https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/), [example2](https://leetcode.com/problems/split-array-largest-sum/)
+
+During backtracking, think what's the nature order to make the order [example](https://leetcode.com/problems/construct-the-lexicographically-largest-valid-sequence/)
+
 ### Time Complexity
 a modern computer can perform some hundreds of millions of operations in a second.\
 PriorityQueue: Insertion and removal take O(logn) time, and retrieval takes O(1) time.
@@ -145,6 +149,10 @@ Test Map contains don't forget to use containsKey instead of contains
 ```$xslt
 cache.containsKey(target - nums[i])
 ```
+
+Permutations: N!
+Combination: Ckn
+Subsets: 2^N
 
 Can't suppose Tree length is lgn, because it might be unbalanced tree
 
@@ -176,6 +184,7 @@ Array of Integer, think sorted / neg or pos
 Ancestor
 dividend / divisor = quotient ... remainder
 numerator / denominator
+
 
 
 

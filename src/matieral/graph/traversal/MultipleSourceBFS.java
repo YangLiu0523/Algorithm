@@ -2,7 +2,9 @@ package matieral.graph.traversal;
 import java.util.*;
 /**
  * Test: https://leetcode.com/problems/map-of-highest-peak/
+ * Test: https://leetcode.com/problems/walls-and-gates/
  */
+
 public class MultipleSourceBFS {
     int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
@@ -45,37 +47,45 @@ public class MultipleSourceBFS {
         return heights;
     }
 
-    public List<List<Integer>> fourSum(int[] nums, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
-        int n = nums.length;
-        for (int i = 0; i < n; i++) {
-            if (i - 1 >= 0 && nums[i] == nums[i - 1]) {
-                continue;
-            }
-            for (int j = i + 1; j < n; j++) {
-                if (j - 1 > i && nums[j] == nums[j - 1]) {
-                    continue;
-                }
-                int l = j + 1, r = n - 1;
-                while (l < r) {
-                    int sum = nums[i] + nums[j] + nums[l] + nums[r];
-                    if (sum < target) {
-                        l++;
-                    }
-                    else if (sum > target) {
-                        r--;
-                    }
-                    else {
-                        res.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[l], nums[r])));
-                        l++;
-                        while (l < n && nums[l] == nums[l - 1]) {
-                            l++;
+    int INF = 2147483647;
+    public void wallsAndGates(int[][] rooms) {
+        if (rooms == null || rooms.length == 0) return;
+        int m = rooms.length, n = rooms[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rooms[i][j] == 0) {
+                    int dist = 0;
+                    Set<Integer> visited = new HashSet<>();
+                    Queue<Integer> queue = new LinkedList<>();
+                    queue.offer(i * n + j);
+                    visited.add(i * n + j);
+                    while(!queue.isEmpty()) {
+                        int size = queue.size();
+                        for (int k = 0; k < size; k++) {
+                            int loc = queue.poll();
+                            int r = loc / n, c = loc % n;
+                            for (int[] dir : dirs) {
+                                int rr = dir[0] + r, cc = dir[1] + c;
+                                if (rr >= 0 && rr < m && cc >= 0 && cc < n) {
+                                    if (rooms[rr][cc] <= 0 || rooms[rr][cc] < rooms[r][c] + 1) {
+                                        continue;
+                                    }
+
+                                    rooms[rr][cc] = Math.min(rooms[rr][cc], rooms[r][c] + 1);
+                                    if (!visited.contains(rr * n + cc)) {
+                                        visited.add(rr * n + cc);
+                                        queue.offer(rr * n + cc);
+                                    }
+
+                                }
+                            }
                         }
+
                     }
                 }
             }
         }
-        return res;
+
     }
+
 }

@@ -1,4 +1,4 @@
-package matieral.tree;
+package matieral.range_query;
 
 /**
  * Reference: https://www.youtube.com/watch?v=WbafSgetDDk

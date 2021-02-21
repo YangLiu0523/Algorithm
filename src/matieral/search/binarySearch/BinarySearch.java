@@ -1,16 +1,28 @@
-package matieral.sort.binarySearch;
-
+package matieral.search.binarySearch;
+import java.util.*;
 /**
+ * Test: https://leetcode.com/problems/peak-index-in-a-mountain-array/ => Like the boundary
  * Test: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
  * Test: https://leetcode.com/problems/k-th-smallest-prime-fraction/
  * Test: https://leetcode.com/problems/median-of-two-sorted-arrays/
  * Test: https://leetcode.com/problems/create-maximum-number/
+ * Test: https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/
  *
- * Last problem is not a binary search actually, I just find it similar with the third on in some way (struggle basically)
  *
  */
 
 public class BinarySearch {
+    public int peakIndexInMountainArray(int[] arr) {
+        int n = arr.length;
+        int l = 0, r = n - 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (arr[mid] < arr[mid + 1]) l = mid + 1;
+            else r = mid;
+        }
+        return l;
+    }
+
     public int[] kthSmallestPrimeFraction(int[] primes, int k) {
         double lo = 0, hi = 1;
         int[] ans = new int[]{0, 1};
@@ -139,4 +151,32 @@ public class BinarySearch {
         }
         return ret;
     }
+    public int[] kWeakestRows(int[][] mat, int k) {
+        int n = mat.length;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] == b[1] ? b[0] - a[0]: b[1] - a[1]);
+        for (int i = 0; i < n; i++) {
+            int val = floor(mat[i], 1);
+            pq.offer(new int[]{i, val});
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+
+        int[] ans = new int[k];
+        for (int i = k - 1; i >= 0; i--) {
+            ans[i] = pq.poll()[0];
+        }
+        return ans;
+    }
+
+    private int floor(int[] arr, int key) {
+        int l = 0, r = arr.length - 1;
+        while (l <= r ) {
+            int mid = l + (r - l) / 2;
+            if (arr[mid] == 0) r = mid - 1;
+            else l = mid + 1;
+        }
+        return r;
+    }
+
 }

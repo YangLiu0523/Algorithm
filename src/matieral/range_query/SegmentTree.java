@@ -1,4 +1,4 @@
-package matieral.tree;
+package matieral.range_query;
 
 /**
  * Ref: https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/

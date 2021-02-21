@@ -3,6 +3,7 @@ import java.util.*;
 
 /**
  * Test: https://leetcode.com/problems/n-queens/
+ * Test: https://leetcode.com/problems/construct-the-lexicographically-largest-valid-sequence/
  */
 
 public class Backtracking {
@@ -51,5 +52,44 @@ public class Backtracking {
         cols[c] = false;
         dia1[r - c + N - 1] = false;
         dia2[r + c] = false;
+    }
+
+    public int[] constructDistancedSequence(int n) {
+        int[] ans = new int[2 * n - 1];
+        boolean[] visited = new boolean[n + 1];
+        backtrack(ans, 0, n, visited);
+        return ans;
+    }
+
+    private boolean backtrack(int[] ans, int idx, int n, boolean[] visited) { // Error prone
+        if (idx == ans.length) {
+            return true;
+        }
+        if (ans[idx] != 0) {
+            return backtrack(ans, idx + 1, n, visited);
+        }
+        for (int i = n; i >= 1; i--) {
+            if (!visited[i]) {
+                visited[i] = true;
+                if (i != 1 && idx + i < ans.length && ans[idx + i] == 0) {
+                    ans[idx] = ans[idx + i] = i;
+                    if (backtrack(ans, idx + 1, n, visited)) {
+                        return true;
+                    }
+                    ans[idx] = ans[idx + i] = 0;
+
+                }
+                else if (i == 1) {
+                    ans[idx] = 1;
+                    if (backtrack(ans, idx + 1, n, visited)) {
+                        return true;
+                    }
+                    ans[idx] = 0;
+                }
+                visited[i] = false;
+            }
+
+        }
+        return false;
     }
 }

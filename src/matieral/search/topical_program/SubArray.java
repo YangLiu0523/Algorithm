@@ -4,13 +4,16 @@ import java.util.*;
 
 /**
  * Test: https://leetcode.com/problems/partition-equal-subset-sum/
- * Test: https://leetcode.com/problems/maximum-subarray/
+ * Test: https://leetcode.com/problems/maximum-subarray/ => Like!
  * Test: https://leetcode.com/problems/maximum-absolute-sum-of-any-subarray/
  *
  * Test: https://leetcode.com/problems/subarray-sum-equals-k/ => Love it!
  * Test: https://leetcode.com/problems/continuous-subarray-sum/ => Cute question
  * Test: https://leetcode.com/problems/subarray-sums-divisible-by-k/
  * Test: https://leetcode.com/problems/make-sum-divisible-by-p/
+ *
+ * Test: https://leetcode.com/problems/split-array-with-equal-sum/
+ * Test: https://leetcode.com/problems/split-array-largest-sum/
  */
 
 public class SubArray {
@@ -153,5 +156,81 @@ public class SubArray {
         }
 
         return removed < A.length ? removed : -1;
+    }
+
+    public int sumSubarrayMins(int[] arr) {
+        int MOD = 1000000007, n = arr.length;
+        Deque<Integer> stack = new ArrayDeque<>();
+        int[] prev = new int[n];
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+                stack.pop();
+            }
+            prev[i] = stack.isEmpty()? -1 : stack.peek();
+            stack.push(i);
+        }
+
+        stack = new ArrayDeque<>();
+        int[] next = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+                stack.pop();
+            }
+            next[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            long add = (long)(i - prev[i]) * (next[i] - i) % MOD * arr[i] % MOD;
+            ans = (ans + add) % MOD;
+        }
+        return (int)ans;
+    }
+    public boolean splitArray(int[] nums) {
+        int n = nums.length;
+        if (n < 7) return false;
+        int[] sums = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            sums[i] = nums[i - 1] + sums[i - 1];
+        }
+
+        for (int j = 4; j <= n - 3; j++) {
+            Set<Integer> seen = new HashSet<>();
+            for (int i = 2; i < j - 1; i++) {
+                if (sums[i - 1] == sums[j - 1] - sums[i]) {
+                    seen.add(sums[i - 1]);
+                }
+            }
+            for (int k = j + 2; k <= n - 1; k++) {
+                if (sums[k - 1] - sums[j] == sums[sums.length - 1] - sums[k] && seen.contains(sums[k - 1] - sums[j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int splitArray(int[] nums, int m) {
+        int n = nums.length;
+        int[] sum = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            sum[i] = sum[i - 1] + nums[i - 1];
+        }
+
+        int[][] cost = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            Arrays.fill(cost[i], Integer.MAX_VALUE);
+        }
+        cost[0][0] = 0;
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                for (int k = 0; k < j; k++) {
+                    cost[i][j] = Math.min(cost[i][j], Math.max(cost[i - 1][k], sum[j] - sum[k]));
+                }
+            }
+        }
+        return cost[m][n];
     }
 }

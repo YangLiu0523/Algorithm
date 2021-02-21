@@ -9,7 +9,8 @@ import java.util.*;
  * Test: https://leetcode.com/problems/minimum-cost-to-hire-k-workers/
  * Test: https://leetcode.com/problems/minimize-deviation-in-array/
  * Test: https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
- *
+ * Test: https://leetcode.com/problems/broken-calculator/
+ * Test: https://leetcode.com/problems/k-th-smallest-prime-fraction/
  */
 
 public class TwoVariables {
@@ -120,6 +121,38 @@ public class TwoVariables {
         return new int[]{start, end};
     }
 
+    public int brokenCalc(int X, int Y) {
+        int ans = 0;
+        while (Y > X) {
+            ans++;
+            if(Y % 2 == 1) {
+                Y++;
+            } else {
+                Y /= 2;
+            }
+        }
+        return ans + X - Y;
+    }
+
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(arr[a[0]] * arr[b[1]], arr[a[1]] * arr[b[0]]));
+
+        // 1/2, 1/3, 1/5
+        for (int i = 1; i < arr.length; i++) {
+            pq.offer(new int[]{0, i});
+        }
+
+        for (int i = 0; i < k - 1; i++) {
+            int[] frac = pq.poll();
+            frac[0]++;
+            if (frac[0] < frac[1]) {
+                pq.offer(frac);
+            }
+        }
+
+        int[] ans = pq.poll();
+        return new int[]{arr[ans[0]], arr[ans[1]]};
+    }
 }
 class Worker {
     int quality;
