@@ -1,34 +1,21 @@
-package matieral.search.greedy;
+package matieral.greedy;
 
 /**
+ * Pick the one end early
  * Test: https://leetcode.com/problems/car-pooling/
- * Test: https://leetcode.com/problems/meeting-rooms-ii/
  * Test: https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
  * Test: https://leetcode.com/problems/non-overlapping-intervals/
+ *
+ * Test: https://leetcode.com/problems/meeting-rooms-ii/ => Use pq simulate rooms, based on end time
  */
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class ScheduleMinRooms {
-    public int minMeetingRooms(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> a - b);
-        int rooms = 0;
-        for (int[] inter : intervals) {
-            if (!pq.isEmpty() && pq.peek() <= inter[0]) {
-                pq.poll();
-            }
-
-            pq.offer(inter[1]);
-            rooms = Math.max(rooms, pq.size());
-        }
-        return rooms;
-    }
-
     public boolean carPooling(int[][] trips, int capacity) {
-        Arrays.sort(trips, (a, b) -> a[1] - b[1]);
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b)-> trips[a][2] - trips[b][2]);
+        Arrays.sort(trips, (a, b) -> a[1] - b[1]); // start time
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b)-> trips[a][2] - trips[b][2]); // endtime
         int load = 0;
         for (int i = 0; i < trips.length; i++) {
             while (!pq.isEmpty() && trips[pq.peek()][2] <= trips[i][1]) {
@@ -73,5 +60,20 @@ public class ScheduleMinRooms {
             else removed++;
         }
         return removed;
+    }
+
+    public int minMeetingRooms(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> a - b);
+        int rooms = 0;
+        for (int[] inter : intervals) {
+            if (!pq.isEmpty() && pq.peek() <= inter[0]) {
+                pq.poll();
+            }
+
+            pq.offer(inter[1]);
+            rooms = Math.max(rooms, pq.size());
+        }
+        return rooms;
     }
 }

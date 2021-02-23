@@ -11,34 +11,35 @@ import matieral.common_use.TreeNode;
  */
 
 public class postOrderTraversal {
-    int ret;
+    int dist = 0;
     public int findDistance(TreeNode root, int p, int q) {
-        dfs(root, p, q);
-        return ret;
+        search(root, p, q);
+        return dist;
     }
 
-    private int dfs(TreeNode root, int p, int q) {
+    private int search(TreeNode root, int p, int q) {
         if (root == null) {
             return -1;
         }
 
-        int left = dfs(root.left, p, q);
-        int right = dfs(root.right, p, q);
-
-        if (left >= 0 && right >= 0) {
-            ret = left + right + 2;
+        int l = search(root.left, p, q);
+        int r = search(root.right, p, q);
+        if (l >= 0 && r >= 0) {
+            dist = l + r + 2;
             return -1;
-        }
-        else if (left < 0 && right < 0) {
-            return root.val == p || root.val == q ? 0 : -1;
         }
         else if (root.val == p || root.val == q) {
-            ret = right < 0 ? left + 1 : right + 1;
-            return -1;
+            if (l >= 0 || r >= 0) {
+                dist = Math.max(l, r) + 1;
+                return -1;
+            }
+            else return 0;
         }
-        else {
-            return right < 0 ? left + 1 : right + 1;
+        else if (l >= 0 || r >= 0) {
+            return Math.max(l, r) + 1;
         }
+
+        return -1;
     }
 
     public TreeNode lcaDeepestLeaves(TreeNode root) {
@@ -56,20 +57,20 @@ public class postOrderTraversal {
         else return new Result(root, l.dist + 1);
     }
 
-    int max = 0;
+    int sum = 0;
     public int distributeCoins(TreeNode root) {
-        moves(root);
-        return max;
+        excessNum(root);
+        return sum;
     }
 
-    private int moves(TreeNode root) {
+    private int excessNum(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
-        int l = moves(root.left);
-        int r = moves(root.right);
-        max += Math.abs(l) + Math.abs(r);
+        int l = excessNum(root.left);
+        int r = excessNum(root.right);
+        sum += Math.abs(l) + Math.abs(r); // Move to/from children
         return root.val + l + r - 1;
     }
 

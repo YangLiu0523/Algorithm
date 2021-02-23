@@ -34,9 +34,7 @@ public class Simulation {
                 continue;
             }
 
-//            System.out.println(choosed);
             heights[K]++;
-//            System.out.println(Arrays.toString(heights));
         }
         return heights;
     }

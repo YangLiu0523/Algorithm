@@ -1,3 +1,5 @@
+package match.codeforces.round_700;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,43 +15,40 @@ import java.util.*;
 public class PaintingtheArrayII {
     MyScanner scanner = new MyScanner();
 
-    public int findMin(int n, int[] arr) { // maximum
-        int[] next = new int[n];
+    public int findMin(int n, int[] arr) {  // 1 indexed
+        int[] next = new int[n + 1];
         int[] pos = new int[n + 1];
         Arrays.fill(pos, n + 1);
-        for (int i = n - 1; i >= 0; i--) {
+        for (int i = n; i >= 0; i--) {
             next[i] = pos[arr[i]];
             pos[arr[i]] = i;
         }
 
-        int x = -1, y = -1, ret = 0;
-        for (int i = 0; i < n; i++) {
-            if (x >= 0 && arr[x] == arr[i] || y >= 0 && arr[y] == arr[i]) {
-                continue;
+        int x = 0, y = 0, res = 0;
+        for (int i = 1; i <= n; i++) {
+            if (arr[i] == arr[x]) {
+                x = i;
             }
-            else if (x == -1 || y == -1) {
-                ret++;
-                if (x == -1) x = i;
-                else y = i;
+            else if (arr[i] == arr[y]) {
+                y = i;
+            }
+            else if (next[x] > next[y]) {
+                res += 1;
+                x = i;
             }
             else {
-                ret++;
-                if (next[x] > next[y]) {
-                    x = i;
-                }
-                else {
-                    y = i;
-                }
+                res += 1;
+                y = i;
             }
         }
-        return ret;
+        return res;
     }
 
     public static void main(String[] args) {
         PaintingtheArrayII test = new PaintingtheArrayII();
         int n = test.scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
+        int[] arr = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
             arr[i] = test.scanner.nextInt();
         }
         int ans = test.findMin(n, arr);

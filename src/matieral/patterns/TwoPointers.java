@@ -2,15 +2,41 @@ package matieral.patterns;
 import java.util.*;
 
 /**
+ * Test: https://leetcode.com/problems/meeting-scheduler/
  * Test: https://leetcode.com/problems/minimum-window-subsequence/
  * Test: https://leetcode.com/problems/minimum-window-substring/
  * Test: https://leetcode.com/problems/increasing-triplet-subsequence/
  *
  * Test: https://leetcode.com/problems/delivering-boxes-from-storage-to-ports/
  * Test: https://leetcode.com/problems/boats-to-save-people/
+ *
+ * Test: https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/ => Like
  */
 
 public class TwoPointers {
+
+    public List<Integer> minAvailableDuration(int[][] slots1, int[][] slots2, int duration) {
+        Arrays.sort(slots1, (a, b) -> Integer.compare(a[0], b[0]));
+        Arrays.sort(slots2, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int idx1 = 0, idx2 = 0;
+        while (idx1 < slots1.length && idx2 < slots2.length) {
+            int l = Math.max(slots1[idx1][0], slots2[idx2][0]);
+            int r = Math.min(slots1[idx1][1], slots2[idx2][1]);
+            if (r - l >= duration) {
+                return new ArrayList<>(Arrays.asList(l, l + duration));
+            }
+
+            // always move the one that ends earlier => Important
+            if (slots1[idx1][1] < slots2[idx2][1]) {
+                idx1++;
+            }
+            else {
+                idx2++;
+            }
+        }
+        return new ArrayList<Integer>();
+    }
 
     public String minWindow(String S, String T) {
         char[] s = S.toCharArray(), t = T.toCharArray();
@@ -23,7 +49,7 @@ public class TwoPointers {
                 if (tIdx == tLen) {
                     int end = sIdx + 1;
                     tIdx--;
-                    while (tIdx >= 0) { // Interesting
+                    while (tIdx >= 0) { // Interesting, Love this part
                         while (s[sIdx] != t[tIdx]){
                             sIdx--;
                         }
@@ -136,5 +162,26 @@ public class TwoPointers {
             }
         }
         return boats;
+    }
+
+    public int minOperations(int[] nums, int x) {
+        int current = 0;
+        for (int num : nums) {
+            current += num;
+        }
+        int n = nums.length;
+        int mini = Integer.MAX_VALUE;
+        int left = 0;
+        for (int right = 0; right < n; right++) {
+            current -= nums[right];
+            while (current < x && left <= right) {
+                current += nums[left];
+                left++;
+            }
+            if (current == x) {
+                mini = Math.min(mini, (n - 1 - right) + left);
+            }
+        }
+        return mini != Integer.MAX_VALUE ? mini : -1;
     }
 }

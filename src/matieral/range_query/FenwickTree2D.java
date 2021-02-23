@@ -32,3 +32,31 @@ public class FenwickTree2D {
         return sum;
     }
 }
+
+class NumMatrix {
+    FenwickTree2D tree;
+    int[][] matrix;
+    public NumMatrix(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) return;
+        this.matrix = matrix;
+        int m = matrix.length, n = matrix[0].length;
+        tree = new FenwickTree2D(m + 1, n + 1);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                tree.update(i + 1, j + 1, matrix[i][j]);
+            }
+        }
+    }
+
+    public void update(int row, int col, int val) {
+        int diff = val - matrix[row][col];
+
+        tree.update(row + 1, col + 1, diff);
+        matrix[row][col] = val;
+    }
+
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        // System.out.println(tree.query(row1, col1));
+        return tree.query(row2 + 1, col2 + 1) + tree.query(row1, col1) - tree.query(row2 + 1 , col1) - tree.query(row1, col2 + 1);
+    }
+}

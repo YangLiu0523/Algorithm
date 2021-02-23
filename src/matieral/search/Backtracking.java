@@ -3,7 +3,10 @@ import java.util.*;
 
 /**
  * Test: https://leetcode.com/problems/n-queens/
+ * Test: https://leetcode.com/problems/sudoku-solver/
+ * Test: https://leetcode.com/problems/valid-sudoku/
  * Test: https://leetcode.com/problems/construct-the-lexicographically-largest-valid-sequence/
+ * Test: https://leetcode.com/problems/gray-code/
  */
 
 public class Backtracking {
@@ -92,4 +95,147 @@ public class Backtracking {
         }
         return false;
     }
+    int n = 9;
+    Map<Integer, Set<Integer>> row;
+    Map<Integer, Set<Integer>> col;
+    Map<Integer, Set<Integer>> grid;
+
+    public int group1(int i, int j) {
+        int k = (int)Math.sqrt(n);
+        return (i / k) * k + (j / k);
+    }
+
+    private void init(char[][] board) {
+        row = new HashMap<>();
+        col = new HashMap<>();
+        grid = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            row.put(i, new HashSet<>());
+            col.put(i, new HashSet<>());
+            grid.put(i, new HashSet<>());
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] != '.') {
+                    int val = board[i][j] - '0';
+                    row.get(i).add(val);
+                    col.get(j).add(val);
+                    grid.get(group(i, j)).add(val);
+                }
+            }
+        }
+    }
+    private boolean backtrack(char[][] board, int id) {
+        if (id == n * n) {
+            return true;
+        }
+
+        int r = id / n, c = id % n;
+        if (board[r][c] != '.') {
+            return backtrack(board, id + 1);
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (isValid(i, r, c)) {
+                set(board, r, c, i);
+                if (backtrack(board, id + 1)) {
+                    return true;
+                }
+                reset(board, r, c, i);
+            }
+        }
+        return false;
+    }
+
+    private void set(char[][] board, int r, int c, int val) {
+        board[r][c] = (char)('0' + val);
+        row.get(r).add(val);
+        col.get(c).add(val);
+        grid.get(group(r, c)).add(val);
+    }
+
+    private void reset(char[][] board, int r, int c, Integer val) {
+        board[r][c] = '.';
+        row.get(r).remove(val);
+        col.get(c).remove(val);
+        grid.get(group(r, c)).remove(val);
+    }
+
+    private boolean isValid(int i, int r, int c) {
+        return !row.get(r).contains(i) && !col.get(c).contains(i) && !grid.get(group(r, c)).contains(i);
+    }
+
+    public void solveSudoku(char[][] board) {
+        init(board);
+        backtrack(board, 0);
+        return;
+    }
+
+
+    public int group(int i, int j) {
+        int k = (int)Math.sqrt(9);
+        return (i / k) * k + (j / k);
+    }
+
+    public boolean isValidSudoku(char[][] board) {
+        int n = 9;
+        Map<Integer, Set<Integer>> row = new HashMap<>();
+        Map<Integer, Set<Integer>> col = new HashMap<>();
+        Map<Integer, Set<Integer>> grid = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            row.put(i, new HashSet<>());
+            col.put(i, new HashSet<>());
+            grid.put(i, new HashSet<>());
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] != '.') {
+                    int val = board[i][j] - '0';
+                    if (row.get(i).contains(val)) return false;
+                    row.get(i).add(val);
+                    if (col.get(j).contains(val)) return false;
+                    col.get(j).add(val);
+                    if (grid.get(group(i, j)).contains(val)) return false;
+                    grid.get(group(i, j)).add(val);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public List<Integer> grayCode(int n) {
+        List<Integer>[] adj = new ArrayList[1 << n];
+        for (int i = 0; i < 1 << n; i++) {
+            adj[i] = new ArrayList<>();
+            for (int j = 1; j < 1 << n; j <<= 1) {
+                adj[i].add(i ^ j);
+            }
+        }
+
+        boolean[] onStack = new boolean[1 << n];
+        onStack[0] = true;
+
+        List<Integer> res = new ArrayList<>();
+        res.add(0);
+        backtrack(adj, 0, onStack, res);
+        return res;
+    }
+
+    private void backtrack(List<Integer>[] adj, int i, boolean[] onStack, List<Integer> res) {
+        if (res.size() == adj.length) {
+            return;
+        }
+        for (int nei : adj[i]) {
+            if (!onStack[nei]) {
+                res.add(nei);
+                onStack[nei] = true;
+                backtrack(adj, nei, onStack, res);
+            }
+        }
+    }
+
 }

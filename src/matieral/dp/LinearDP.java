@@ -3,8 +3,10 @@ import java.util.*;
 import matieral.common_use.*;
 
 /**
- * Test:
+ * Test: https://leetcode.com/problems/coin-change/
  * Test: https://leetcode.com/problems/coin-change-2/
+ * Test: https://leetcode.com/problems/combination-sum-iv/ => Different with coin-change 2
+ *
  * Test: https://leetcode.com/problems/paint-fence/ => Like
  * Test: https://leetcode.com/problems/paint-house/
  * Test: https://leetcode.com/problems/paint-house-ii/ => Like
@@ -14,6 +16,21 @@ import matieral.common_use.*;
  */
 
 public class LinearDP {
+
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                if (dp[i - coin] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+                }
+            }
+        }
+        return dp[amount] == Integer.MAX_VALUE? -1 : dp[amount];
+    }
 
     public int change(int amount, int[] coins) {
         Arrays.sort(coins);
@@ -27,6 +44,20 @@ public class LinearDP {
             }
         }
         return dp[amount];
+    }
+
+    // comSum[target] = sum(target - nums[i])
+    public int combinationSum4(int[] nums, int target) {
+        int[] comSum = new int[target + 1];
+        comSum[0] = 1;
+        for (int s = 1; s <= target; s++) {
+            for (int num : nums) {
+                if (s - num >= 0) {
+                    comSum[s] += comSum[s - num];
+                }
+            }
+        }
+        return comSum[target];
     }
 
     public int numWays(int n, int k) {

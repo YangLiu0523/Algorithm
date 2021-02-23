@@ -6,6 +6,7 @@ import java.util.*;
  * Test: https://leetcode.com/problems/count-ways-to-make-array-with-product/
  * Test: https://leetcode.com/problems/count-primes/
  * Test: https://leetcode.com/problems/factor-combinations/
+ * Test: https://leetcode.com/problems/prime-palindrome/
  */
 
 public class Prime {
@@ -127,5 +128,40 @@ public class Prime {
     public static void main(String[] args) {
         Prime test = new Prime();
         System.out.println(test.primeDecompose(16));
+    }
+
+    public int primePalindrome(int N) {
+        for (int l = 1; l <= 5; l++) {
+            for (int root = (int)Math.pow(10, l - 1); root < (int)Math.pow(10, l); root++) {
+                StringBuilder sb = new StringBuilder(Integer.toString(root));
+                for (int i = l - 2; i >= 0; i--) {
+                    sb.append(sb.charAt(i));
+                }
+                int x = Integer.valueOf(sb.toString());
+                if (x >= N && isPrime(x)) {
+                    return x;
+                }
+            }
+
+            for (int root = (int)Math.pow(10, l - 1); root < (int) Math.pow(10, l); root++) {
+                StringBuilder sb = new StringBuilder(Integer.toString(root));
+                for (int i = l - 1; i >= 0; i--) {
+                    sb.append(sb.charAt(i));
+                }
+                int x = Integer.valueOf(sb.toString());
+                if (x >= N && isPrime(x)) {
+                    return x;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
     }
 }

@@ -44,7 +44,7 @@ class SegmentTree {
 
     public void update(int i, int val) {
 //        updateSingleElement(i, val, 0, nums.length -1, 0);
-        updateRangeLazy(i, i, val - nums[i], 0, nums.length -1, 0);   nums[i] = val;
+        updateRangeLazy(i, i, val - sumRange(i, i), 0, nums.length - 1, 0);
     }
 
     private void updateRangeLazy (int i, int j, int diff, int lo, int hi, int treeIdx) {
@@ -79,31 +79,10 @@ class SegmentTree {
         }
     }
 
-    private void updateSingleElement(int i, int val, int lo, int hi, int treeIdx) {
-        if (lo == hi) {
-            tree[treeIdx] = val;
-            return;
-        }
-        int mid = lo + (hi - lo)/ 2;
-        if (i <= mid) updateSingleElement(i, val, lo, mid, treeIdx * 2 + 1);
-        else updateSingleElement(i, val, mid + 1, hi, treeIdx * 2 + 2);
-
-        tree[treeIdx] = tree[treeIdx * 2 + 1] + tree[treeIdx * 2 + 2];
-    }
 
     public int sumRange(int i, int j) {
 //        return sumRangeHelper(i, j, 0, nums.length - 1, 0);
         return queryLazySegTree(i, j,0,  nums.length - 1, 0);
-    }
-
-    private int sumRangeHelper(int i, int j, int lo, int hi, int treeIdx) {
-        if (j < lo || i > hi || j < i) return 0;
-        if (i == lo && j == hi) return tree[treeIdx];
-
-        int mid = lo + (hi - lo) / 2;
-        if(i > mid) return sumRangeHelper(i, j, mid + 1, hi, treeIdx * 2 + 2);
-        else if (j <= mid) return sumRangeHelper(i, j, lo, mid, treeIdx * 2 + 1);
-        else return sumRangeHelper(i, mid, lo, mid, 2 * treeIdx + 1) + sumRangeHelper(mid + 1, j, mid + 1, hi, 2 * treeIdx + 2);
     }
 
     private int queryLazySegTree(int i, int j, int lo, int hi, int treeIdx) {
@@ -122,9 +101,34 @@ class SegmentTree {
         }
         else {
             int mid = lo + (hi - lo) / 2;
-            if (i > mid) return queryLazySegTree(i, j, mid + 1, hi, 2 * treeIdx + 2);
+            if (i > mid) return queryLazySegTree(i, j, mid + 1, hi, 2 * treeIdx + 2); // Error prone, it's still ranged i j
             else if (j <= mid) return queryLazySegTree(i, j, lo, mid, 2 * treeIdx + 1);
             else return queryLazySegTree(i, mid, lo, mid, 2 * treeIdx + 1) + queryLazySegTree(mid + 1, j, mid + 1, hi, 2 * treeIdx + 2);
         }
     }
+
+
+
+    private void updateSingleElement(int i, int val, int lo, int hi, int treeIdx) {
+        if (lo == hi) {
+            tree[treeIdx] = val;
+            return;
+        }
+        int mid = lo + (hi - lo)/ 2;
+        if (i <= mid) updateSingleElement(i, val, lo, mid, treeIdx * 2 + 1);
+        else updateSingleElement(i, val, mid + 1, hi, treeIdx * 2 + 2);
+
+        tree[treeIdx] = tree[treeIdx * 2 + 1] + tree[treeIdx * 2 + 2];
+    }
+
+    private int sumRangeHelper(int i, int j, int lo, int hi, int treeIdx) {
+        if (j < lo || i > hi || j < i) return 0;
+        if (i == lo && j == hi) return tree[treeIdx];
+
+        int mid = lo + (hi - lo) / 2;
+        if(i > mid) return sumRangeHelper(i, j, mid + 1, hi, treeIdx * 2 + 2);
+        else if (j <= mid) return sumRangeHelper(i, j, lo, mid, treeIdx * 2 + 1);
+        else return sumRangeHelper(i, mid, lo, mid, 2 * treeIdx + 1) + sumRangeHelper(mid + 1, j, mid + 1, hi, 2 * treeIdx + 2);
+    }
+
 }

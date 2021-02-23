@@ -1,4 +1,4 @@
-package matieral.search.greedy;
+package matieral.greedy;
 import java.util.*;
 
 /**

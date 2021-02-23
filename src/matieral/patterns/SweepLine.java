@@ -1,4 +1,4 @@
-package matieral.patterns.sweepline;
+package matieral.patterns;
 import java.util.*;
 
 /**

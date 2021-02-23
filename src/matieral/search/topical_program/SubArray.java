@@ -14,6 +14,9 @@ import java.util.*;
  *
  * Test: https://leetcode.com/problems/split-array-with-equal-sum/
  * Test: https://leetcode.com/problems/split-array-largest-sum/
+ *
+ * Test: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+ * Test: https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/ => like
  */
 
 public class SubArray {
@@ -187,6 +190,7 @@ public class SubArray {
         }
         return (int)ans;
     }
+
     public boolean splitArray(int[] nums) {
         int n = nums.length;
         if (n < 7) return false;
@@ -232,5 +236,47 @@ public class SubArray {
             }
         }
         return cost[m][n];
+    }
+
+    public int maxSubArrayLen(int[] nums, int k) {
+        int longest = 0, sum = 0;
+        Map<Integer, Integer> map = new HashMap<>();//val, idx
+        map.put(0, -1);
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum - k)) {
+                longest = Math.max(longest, i - map.get(sum - k));
+            }
+            if (!map.containsKey(sum)) {
+                map.put(sum, i);
+            }
+        }
+        return longest;
+    }
+
+    public int minOperations(int[] nums, int x) {
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+        }
+        int n = nums.length;
+        int maxi = -1;
+        int left = 0;
+        int current = 0;
+
+        for (int right = 0; right < n; right++) {
+            // sum([left ,..., right]) = total - x
+            current += nums[right];
+            // if larger, move `left` to left
+            while (current > total - x && left <= right) {
+                current -= nums[left];
+                left += 1;
+            }
+            // check if equal
+            if (current == total - x) {
+                maxi = Math.max(maxi, right - left + 1);
+            }
+        }
+        return maxi != -1 ? n - maxi : -1;
     }
 }

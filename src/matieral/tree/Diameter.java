@@ -17,6 +17,7 @@ public class Diameter {
         depth(root);
         return max;
     }
+
     private int depth(Node root) {
         if (root.children.isEmpty()) return 0;
 

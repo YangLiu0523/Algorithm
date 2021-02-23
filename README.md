@@ -82,7 +82,7 @@ Don't use iterator and modify the collection at the same time
 
 
 
-nteger.valueOf(b.charAt(0)) 是错误的！
+Integer.valueOf(b.charAt(0)) 是错误的！
 
         Arrays.fill(dp, new HashMap<>());太可怕了
         
@@ -90,6 +90,14 @@ nteger.valueOf(b.charAt(0)) 是错误的！
                 for (int i = 1; i < n; i++) { 要小心
                 
                 
+                s1.compareTo(s1) 
+                //String.compare(s1, s2): false
+                
+                
+        char[] arr = String.valueOf(num).toCharArray();
+        return list.toArray(new int[list.size()][2]);
+
+
 ### Number range
 32 bit: -2<sup>31</sup> ~ 2<sup>31</sup> - 1 or -2*10<sup>9</sup> ~ 2*10<sup>9</sup>\
 64 bit: -2<sup>63</sup> ~ -2<sup>63</sup> - 1 or -9 * 10<sup>18</sup> ~ 9 * 10<sup>18</sup>  
@@ -102,6 +110,9 @@ System.out.println(b);
 
 ```
 1e-9, 1e9
+
+ sb.deleteCharAt()
+
 
 ### Mathmatics
 sum(1, 2, 3, ... n ) = n * (n + 1) / 2\
@@ -184,7 +195,8 @@ Array of Integer, think sorted / neg or pos
 Ancestor
 dividend / divisor = quotient ... remainder
 numerator / denominator
-
+sentinel
+anchor
 
 
 

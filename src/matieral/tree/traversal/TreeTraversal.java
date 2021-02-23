@@ -1,7 +1,9 @@
 package matieral.tree.traversal;
 import java.util.*;
+import matieral.common_use.TreeNode;
 /**
  * Test: https://leetcode.com/problems/course-schedule-iv/
+ * Test: https://leetcode.com/problems/convert-bst-to-greater-tree/ => tricky
  */
 
 public class TreeTraversal {
@@ -36,5 +38,21 @@ public class TreeTraversal {
         for (int w : adj[v]) {
             connect(adj, u, w);
         }
+    }
+
+    public TreeNode convertBST(TreeNode root) {
+        traverse(root, 0);
+        return root;
+
+    }
+    private int traverse(TreeNode root, int prev) {
+        if (root == null) {
+            return prev; // Error-prone
+        }
+
+        int right = traverse(root.right, prev);
+        root.val += right;
+        int left = traverse(root.left, root.val);
+        return left; //Error prone
     }
 }

@@ -2,10 +2,12 @@ package matieral.patterns;
 import java.util.*;
 
 /**
+ * Test: https://leetcode.com/problems/maximize-distance-to-closest-person/
  * Test: https://leetcode.com/problems/shortest-distance-to-a-character/
  * Test: https://leetcode.com/problems/sum-of-subarray-minimums/
  * Test: https://leetcode.com/problems/longest-valid-parentheses/ => Like
  * Test: https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
+ *
  */
 public class SearchTwoDirs {
     public int[] shortestToChar(String S, char C) {

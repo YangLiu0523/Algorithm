@@ -1,9 +1,9 @@
-package matieral.search.greedy;
+package matieral.greedy;
 
 import java.util.*;
 
 /**
- * Test: https://leetcode.com/problems/gas-station/
+ * Test: https://leetcode.com/problems/gas-station/ => 需要加深理解
  * Test: https://leetcode.com/problems/super-washing-machines/
  * Test: https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks/
  */
