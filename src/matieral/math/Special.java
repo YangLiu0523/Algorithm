@@ -6,6 +6,11 @@ import java.util.*;
  * Test: https://leetcode.com/problems/2-keys-keyboard/
  * Test: https://leetcode.com/problems/4-keys-keyboard/
  * Test: https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/
+ *
+ * Test: https://leetcode.com/problems/monotone-increasing-digits/
+ * Test: https://leetcode.com/problems/next-permutation/
+ *
+ * Test: https://leetcode.com/problems/decoded-string-at-index/
  */
 
 public class Special {
@@ -75,5 +80,74 @@ public class Special {
             if (operations > maxOperations) return false;
         }
         return true;
+    }
+
+    public int monotoneIncreasingDigits(int N) {
+        char[] arr = String.valueOf(N).toCharArray();
+        int i = 1;
+        while (i < arr.length && arr[i - 1] <= arr[i]) {
+            i++;
+        }
+        while (i > 0 && i < arr.length && arr[i - 1] > arr[i]) {
+            arr[i - 1]--;
+            i--;
+        }
+
+        for (int j = i + 1; j < arr.length; j++) arr[j] = '9';
+        return Integer.parseInt(String.valueOf(arr));
+
+    }
+
+    public void nextPermutation(int[] nums) {
+        int head = nums.length - 1;
+        while (head - 1 >= 0 && nums[head - 1] >= nums[head]) {
+            head--;
+        }
+
+        rotate(nums, head, nums.length - 1);
+        if (head == 0) return;
+
+        int target = nums[head - 1];
+        for (int i = head; i < nums.length; i++) {
+            if (nums[i] > target) {
+                swap(nums, head - 1, i);
+                break;
+            }
+        }
+        return;
+    }
+    private void rotate(int[] nums, int i, int j) {
+        while(i < j) {
+            swap(nums, i++, j--);
+        }
+    }
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+
+    public String decodeAtIndex(String S, int K) {
+        long size = 0;
+        for (int i = 0; i< S.length(); i++) {
+            char c = S.charAt(i);
+            if (Character.isDigit(c)) {
+                size *= (c - '0');
+            }
+            else size++;
+        }
+
+        for (int i = S.length() -1; i >= 0; i--) {
+            char c = S.charAt(i);
+            K %= size;
+            if (K == 0 && !Character.isDigit(c)) return Character.toString(c);
+            if (Character.isDigit(c)) {
+                size /= (c- '0');
+            }
+            else {
+                size--;
+            }
+        }
+        return "";
     }
 }

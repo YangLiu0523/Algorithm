@@ -17,6 +17,8 @@ import java.util.*;
  *
  * Test: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
  * Test: https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/ => like
+ *
+ * Test:https://leetcode.com/problems/maximum-product-of-three-numbers/
  */
 
 public class SubArray {
@@ -278,5 +280,10 @@ public class SubArray {
             }
         }
         return maxi != -1 ? n - maxi : -1;
+    }
+
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+        return Math.max(nums[0] * nums[1] * nums[nums.length - 1], nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3]);
     }
 }

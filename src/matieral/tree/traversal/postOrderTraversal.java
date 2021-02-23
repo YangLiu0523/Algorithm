@@ -7,6 +7,8 @@ import matieral.common_use.TreeNode;
  * Test: https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
  * Test: https://leetcode.com/problems/distribute-coins-in-binary-tree/
  * Test: https://leetcode.com/problems/binary-tree-cameras/
+ *
+ * Test: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/
  * 
  */
 
@@ -106,6 +108,30 @@ public class postOrderTraversal {
         int d1 = Math.min(l[2] + mr12, r[2] + ml12);
         int d2 = 1 + Math.min(l[0], ml12) + Math.min(r[0], mr12);
         return new int[]{d0, d1, d2};
+    }
+
+    int cnt = 0;
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode res = search(root, p, q);
+        return cnt == 2 ? res : null;
+    }
+
+    private TreeNode search(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode l = search(root.left, p, q);
+        TreeNode r = search(root.right, p, q);
+
+        if (root.equals(p) || root.equals(q)) {
+            cnt++;
+            return root;
+        }
+        else if (l != null && r != null) {
+            return root;
+        }
+        return l != null ? l : r; //Important
     }
 }
 

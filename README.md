@@ -113,6 +113,8 @@ System.out.println(b);
 
  sb.deleteCharAt()
 
+        int[] snums = nums.clone();
+
 
 ### Mathmatics
 sum(1, 2, 3, ... n ) = n * (n + 1) / 2\
@@ -138,6 +140,12 @@ public boolean isTwoPow(int i) {
     return (i & (i - 1)) == 0;
 }
 ```
+
+
+            if (Character.isUpperCase()) Character.toLowerCase()
+            Integer.toBinaryString(i);spend  O(log(n)) to transform it into the binary form and add it to the final result.
+
+Integer.bitCount(
 
 Remember binary search to validate the guess if no clue how to find the answer [example1](https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/), [example2](https://leetcode.com/problems/split-array-largest-sum/)
 

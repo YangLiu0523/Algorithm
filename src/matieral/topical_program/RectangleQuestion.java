@@ -1,85 +1,66 @@
-package matieral.patterns;
+package matieral.topical_program;
 import java.util.*;
-
 /**
- * Test: https://leetcode.com/problems/meeting-scheduler/
- * Test: https://leetcode.com/problems/the-skyline-problem/
+ * Test: https://leetcode.com/problems/number-of-corner-rectangles/
+ * Test: https://leetcode.com/problems/rectangle-overlap/
+ * Test: https://leetcode.com/problems/rectangle-area/
  * Test: https://leetcode.com/problems/rectangle-area-ii/
  * Test: https://leetcode.com/problems/perfect-rectangle/
- *
  */
-public class SweepLine {
-    public List<Integer> minAvailableDuration(int[][] slots1, int[][] slots2, int duration) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        for (int[] slot : slots1) {
-            if (slot[1] - slot[0] >= duration) {
-                pq.offer(slot);
-            }
-        }
-        for (int[] slot : slots2) {
-            if (slot[1] - slot[0] >= duration) {
-                pq.offer(slot);
-            }
+
+public class RectangleQuestion {
+    public int countCornerRectangles(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+
+        Map<Integer, Set<Integer>> columnsInRow = new HashMap<>();
+        for (int i = 0; i < m; i++) {
+            columnsInRow.put(i, new HashSet<>());
         }
 
-        int[] prev = pq.poll();
-        while (!pq.isEmpty()) {
-            int[] curr = pq.poll();
-            if (prev[1] - curr[0] >= duration) {
-                return new ArrayList<>(Arrays.asList(curr[0], curr[0] + duration));
+        Map<Integer, Integer> cntMap = new HashMap<>();
+
+        int ret = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    columnsInRow.get(i).add(j);
+                    for (int k = i - 1; k >= 0; k--) {
+                        int key = k * 200 + i;
+                        if (columnsInRow.get(k).contains(j)) {
+                            ret += cntMap.getOrDefault(key, 0);
+                            cntMap.put(key, cntMap.getOrDefault(key, 0) + 1);
+                        }
+                    }
+                }
             }
-            prev = curr;
         }
-        return new ArrayList<>();
+        return ret;
     }
 
-    public List<List<Integer>> getSkyline(int[][] buildings) {
-        List<SkylineEvent> events = new ArrayList<>();
-        for (int i = 0; i < buildings.length; i++) {
-            events.add(new SkylineEvent(buildings[i][0], buildings[i][2], -1));
-            events.add(new SkylineEvent(buildings[i][1], buildings[i][2], 1));
+    public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
+        return (Math.min(rec1[2], rec2[2]) > Math.max(rec1[0], rec2[0])) && (Math.min(rec1[3], rec2[3]) > Math.max(rec1[1], rec2[1]));
+    }
+
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int area1 = 0;
+        if (Math.min(C, G) > Math.max(A, E) && Math.min(D, H) > Math.max(B, F)) {
+            int l1 = Math.max(A, E);
+            int r1 = Math.min(C, G);
+            int d1 = Math.max(B, F);
+            int u1 = Math.min(D, H);
+            area1 = (r1 - l1) * (u1 - d1);
         }
 
-        Collections.sort(events);
-
-        TreeMap<Integer, Integer> map = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2 - o1;
-            }
-        });
-
-        List<List<Integer>> ans = new ArrayList<>();
-        for (SkylineEvent e : events) {
-            if(e.type == -1) {
-                if (map.isEmpty() || map.firstKey() < e.h) {
-                    ans.add(new ArrayList<>(Arrays.asList(e.loc, e.h)));
-                }
-                map.put(e.h, map.getOrDefault(e.h, 0) + 1);
-            }
-            else {
-                map.put(e.h, map.get(e.h) - 1);
-                if (map.get(e.h) == 0) map.remove((Integer)e.h);
-
-                if (!map.isEmpty() && e.h > map.firstKey()) {
-                    ans.add(new ArrayList<>(Arrays.asList(e.loc, map.firstKey())));
-                }
-                else if (map.isEmpty()) {
-                    ans.add(new ArrayList<>(Arrays.asList(e.loc, 0)));
-
-                }
-            }
-        }
-        return ans;
+        return (C - A) * (D - B) + (H - F) * (G - E) - area1;
     }
 
     int OPEN = 0;
     int CLOSE = 1;
     public int rectangleArea(int[][] rectangles) {
-        List<recEvent> events = new ArrayList<>();
+        List<RecEvent> events = new ArrayList<>();
         for (int[] rec : rectangles) {
-            events.add(new recEvent(rec[1], OPEN, rec[0], rec[2]));
-            events.add(new recEvent(rec[3], CLOSE, rec[0], rec[2]));
+            events.add(new RecEvent(rec[1], OPEN, rec[0], rec[2]));
+            events.add(new RecEvent(rec[3], CLOSE, rec[0], rec[2]));
         }
         Collections.sort(events);
 
@@ -87,7 +68,7 @@ public class SweepLine {
         long ans = 0;
         int baseHeight = events.get(0).height;
 
-        for (recEvent event : events) {
+        for (RecEvent event : events) {
             long span = 0;
             int prev = -1;
             for (int[] interval : intervals) {
@@ -117,13 +98,13 @@ public class SweepLine {
         return (int) ans;
     }
 
-    public boolean isRectangleCover(int[][] rectangles) {
+    public boolean isRectangleCover2(int[][] rectangles) {
         int[] xRange = new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE};
-        PriorityQueue<Event> pq = new PriorityQueue<>();
+        PriorityQueue<RecRectangle> pq = new PriorityQueue<>();
         for (int[] rec : rectangles) {
             Rectangle rectangle = new Rectangle(rec[0], rec[1], rec[2], rec[3]);
-            pq.offer(new Event(rec[1], rectangle));
-            pq.offer(new Event(rec[3], rectangle));
+            pq.offer(new RecRectangle(rec[1], rectangle));
+            pq.offer(new RecRectangle(rec[3], rectangle));
             xRange[0] = Math.min(xRange[0], rec[0]);
             xRange[1] = Math.max(xRange[1], rec[2]);
         }
@@ -141,7 +122,7 @@ public class SweepLine {
         while(!pq.isEmpty()) {
             int h = pq.peek().h;
             while (!pq.isEmpty() && pq.peek().h == h) {
-                Event event = pq.poll();
+                RecRectangle event = pq.poll();
                 if (event.rectangle.y1 == event.h) { // Enter
                     if (!xSet.add(event.rectangle)) {
                         return false;
@@ -159,48 +140,44 @@ public class SweepLine {
         }
         return true;
     }
-
 }
 
-class SkylineEvent implements Comparable<SkylineEvent>{
-    int loc;
-    int h;
-    int type;
-    public SkylineEvent(int loc, int h, int type) {
-        this.loc = loc;
-        this.h = h;
-        this.type = type;
-    }
-
-    @Override
-    public int compareTo(SkylineEvent o) {
-        if (this.loc == o.loc && this.type == o.type) {
-            if (this.type == -1) { // Entry
-                return o.h - this.h;
-            }
-            else return this.h - o.h;
-        }
-        else return this.loc == o.loc ? this.type - o.type : this.loc - o.loc;
-    }
-}
-
-class recEvent implements Comparable<recEvent> {
+class RecEvent implements Comparable<RecEvent> {
     int height;
     int type;
     int from;
     int to;
 
-    public recEvent(int height, int type, int from, int to) {
+    public RecEvent(int height, int type, int from, int to) {
         this.height = height;
         this.type = type;
         this.from = from;
         this.to = to;
     }
 
-    public int compareTo(recEvent that) {
+    public int compareTo(RecEvent that) {
         return this.height - that.height;
     }
 }
+
+
+
+class RecRectangle implements Comparable<RecRectangle> {
+    int h;
+    Rectangle rectangle;
+
+    public RecRectangle(int h, Rectangle rectangle) {
+        this.h = h;
+        this.rectangle = rectangle;
+    }
+
+    @Override
+    public int compareTo(RecRectangle that) {
+        // If the height is the same, return the first show up one
+        return this.h == that.h ? this.rectangle.y1 - that.rectangle.y1: this.h - that.h;
+    }
+}
+
 
 class Rectangle{
     int y1;
@@ -231,4 +208,3 @@ class Event implements Comparable<Event> {
         return this.h == that.h ? this.rectangle.y1 - that.rectangle.y1: this.h - that.h;
     }
 }
-

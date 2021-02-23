@@ -5,6 +5,7 @@ import java.util.*;
  * Test: https://leetcode.com/problems/daily-temperatures/
  * Test: https://leetcode.com/problems/jump-game-v/ => not typical
  * Test: https://leetcode.com/problems/odd-even-jump/ => not typical
+ * Test: https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/ => Like!!!
  *
  * Reference: https://leetcode.com/problems/odd-even-jump/discuss/977074/Java-mono-Stack-easy-understanding
  *
@@ -111,6 +112,28 @@ public class MonotonicStack {
             if (canOdd[i]) cnt++;
         }
         return cnt;
+    }
+
+    public int mctFromLeafValues(int[] arr) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        int res = 0;
+        for (int num : arr) {
+            while (!stack.isEmpty() && stack.peek() <= num) {
+                int curr = stack.pop();
+                if (!stack.isEmpty()) {
+                    res += curr * Math.min(stack.peek(), num);
+                }
+                else {
+                    res += curr * num;
+                }
+            }
+            stack.push(num);
+        }
+
+        while (stack.size() >= 2) {
+            res += stack.pop() * stack.peek();
+        }
+        return res;
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.*;
  * Test: https://leetcode.com/problems/find-minimum-time-to-finish-all-jobs/
  * Test: https://leetcode.com/problems/can-i-win/
  * Test: https://leetcode.com/problems/stickers-to-spell-word/
- * Test: https://leetcode.com/problems/parallel-courses/
+ * Test: https://leetcode.com/problems/parallel-courses-ii/
  */
 
 public class BitMaskOrArrayRepresentStateDP {
@@ -128,5 +128,31 @@ public class BitMaskOrArrayRepresentStateDP {
         // System.out.println(Arrays.toString(dp));
         return dp[dp.length - 1] == Integer.MAX_VALUE ? -1 : dp[dp.length - 1];
     }
+    public int minNumberOfSemesters(int n, int[][] dependencies, int k) {
+        int[] prerequisites = new int[n];
+        for (int[] d : dependencies) {
+            prerequisites[d[1] - 1] |= 1 << (d[0] - 1);
+        }
 
+        int[] dp = new int[1 << n];
+        Arrays.fill(dp, n + 1);
+        dp[0] = 0;
+
+        for (int i = 0; i < (1 << n); i++) {
+            int availableCourses = 0;
+            for (int course = 0; course < n; course++) {
+                if ((prerequisites[course] & i) == prerequisites[course]) {
+                    availableCourses |= (1 << course);
+                }
+            }
+            availableCourses &= ~i;
+
+            for (int nextSemester = availableCourses; nextSemester > 0; nextSemester = (nextSemester - 1) & availableCourses) {
+                if (Integer.bitCount(nextSemester) <= k) {
+                    dp[i | nextSemester] = Math.min(dp[i | nextSemester], 1 + dp[i]);
+                }
+            }
+        }
+        return dp[(1 << n)- 1];
+    }
 }

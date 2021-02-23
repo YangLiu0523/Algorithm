@@ -4,7 +4,9 @@ import java.util.*;
 /**
  * Test: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
  * Test: https://leetcode.com/problems/longest-valid-parentheses/ => Like
+ * Test: https://leetcode.com/problems/score-of-parentheses/
  */
+
 public class Parentheses {
     public String minRemoveToMakeValid(String s) {
         int left = 0, right = 0;
@@ -53,4 +55,22 @@ public class Parentheses {
         return maxLen;
     }
 
+    public int scoreOfParentheses(String S) {
+        int left = 0, idx = 0, score = 0;
+        while (idx < S.length()) {
+            if (S.charAt(idx) == '(') {
+                left++;
+                idx++;
+            }
+            else {
+                int level = left;
+                while (idx < S.length() && S.charAt(idx) == ')') {
+                    idx++;
+                    left--;
+                }
+                score += (1 << (level - 1));
+            }
+        }
+        return score;
+    }
 }

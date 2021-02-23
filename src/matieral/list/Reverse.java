@@ -2,7 +2,7 @@ package matieral.list;
 import matieral.common_use.ListNode;
 
 /**
- * Test: https://leetcode.com/problems/reverse-linked-list/
+ * Test: https://leetcode.com/problems/reverse-linked-list/ => Like
  * Test: https://leetcode.com/problems/reverse-linked-list-ii/
  * Test: https://leetcode.com/problems/reverse-nodes-in-k-group/
  * Test: https://leetcode.com/problems/rotate-list/

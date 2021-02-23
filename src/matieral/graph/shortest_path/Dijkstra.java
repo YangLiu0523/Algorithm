@@ -28,7 +28,8 @@ public class Dijkstra {
         Arrays.fill(dist, Integer.MAX_VALUE);
 
         Queue<int[]> queue = new PriorityQueue<>((arr1, arr2) -> arr1[1] - arr2[1]);
-        queue.offer(new int[]{K, 0});
+        queue.offer(new int[]{K, 0});// Important
+
         while (!queue.isEmpty()) {
             int[] info = queue.poll();
             int node =info[0], time = info[1];
