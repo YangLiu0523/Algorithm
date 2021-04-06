@@ -1,27 +1,21 @@
-package match.codeforces;
+package match.codeforces.round_709;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class   Template {
+public class PrisonBreak {
     MyScanner scanner = new MyScanner();
 
 
-    private void printArr(int[] arr) {
-        StringBuilder sb = new StringBuilder();
-        for (int num : arr) {
-            sb.append(num + " ");
-        }
-        System.out.println(sb.substring(0, sb.length() - 1));
-    }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        PrisonBreak test = new PrisonBreak();
         int t = test.scanner.nextInt();
         for (int i = 0; i < t; i++) {
-            int n = test.scanner.nextInt();
+            int a = test.scanner.nextInt(), b = test.scanner.nextInt();
+            System.out.println(a * b);
         }
     }
 

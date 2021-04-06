@@ -208,3 +208,16 @@ anchor
 
 
 
+```
+int[] arr1 = new int[]{1, 2, 3};
+int[] arr2 = new int[]{1, 2, 3};
+System.out.println(Arrays.equals(arr1, arr2)); // true
+
+Set<int[]> set = new HashSet<>();
+set.add(arr1);
+set.add(arr2);
+System.out.println(set.size()); // 2
+```
+
+
+

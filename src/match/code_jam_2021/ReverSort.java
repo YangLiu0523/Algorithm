@@ -1,13 +1,35 @@
-package match.codeforces;
+package match.code_jam_2021;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class   Template {
+public class ReverSort {
     MyScanner scanner = new MyScanner();
 
+    private int solve (int[] arr) {
+        int score = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[min]) min = j;
+            }
+            reverse(arr, i, min);
+            score += (min - i + 1);
+        }
+        return score;
+    }
+
+    private void reverse(int[] arr, int i, int j) {
+        while (i < j) {
+            int tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
+        }
+    }
 
     private void printArr(int[] arr) {
         StringBuilder sb = new StringBuilder();
@@ -18,10 +40,13 @@ public class   Template {
     }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        ReverSort test = new ReverSort();
         int t = test.scanner.nextInt();
         for (int i = 0; i < t; i++) {
             int n = test.scanner.nextInt();
+            int[] arr = test.scanner.nextIntArray(n);
+            int ans = test.solve(arr);
+            System.out.println("Case #" + (i + 1) + ": " + ans);
         }
     }
 

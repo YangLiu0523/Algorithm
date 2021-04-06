@@ -1,13 +1,59 @@
-package match.codeforces;
+package match.codeforces.round_709;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 
-public class   Template {
+public class BasicDiplomacy {
     MyScanner scanner = new MyScanner();
 
+    private void solve(int friends, int days, List<Set<Integer>> available) {
+        int upperLimit = (int)Math.ceil((double)days/2);
+        int[] appears = new int[friends + 1];
+        for (int d = 0; d < days; d++) {
+            for (int f : available.get(d)) {
+                appears[f]++;
+            }
+        }
+
+        Integer target = 0;
+        for (int f = 1; f < appears.length; f++) {
+            if (appears[f] > upperLimit) {
+                target = f;
+                break;
+            }
+        }
+        int[] ans = new int[days];
+        if (target == 0) {
+            for (int d = 0; d < days; d++) {
+                ans[d] = available.get(d).iterator().next();
+            }
+            System.out.println("YES");
+            printArr(ans);
+            return;
+        }
+
+        int targetTimes = appears[target];
+        for (int d = 0; d < days && targetTimes > upperLimit; d++) {
+            if (available.get(d).contains(target) && available.get(d).size() > 1) {
+                available.get(d).remove(target);
+                targetTimes--;
+            }
+        }
+
+        if (targetTimes > upperLimit) {
+            System.out.println("NO");
+            return;
+        }
+
+        for (int d = 0; d < days; d++) {
+            ans[d] = available.get(d).iterator().next();
+        }
+        System.out.println("YES");
+        printArr(ans);
+        return;
+    }
 
     private void printArr(int[] arr) {
         StringBuilder sb = new StringBuilder();
@@ -18,10 +64,20 @@ public class   Template {
     }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        BasicDiplomacy test = new BasicDiplomacy();
         int t = test.scanner.nextInt();
         for (int i = 0; i < t; i++) {
-            int n = test.scanner.nextInt();
+            int friends = test.scanner.nextInt(), days = test.scanner.nextInt();
+            List<Set<Integer>> available = new ArrayList<>();
+            for (int j = 0; j < days; j++) {
+                available.add(new HashSet<>());
+                int num = test.scanner.nextInt();
+                for (int k = 0; k < num; k++) {
+                    available.get(available.size() - 1).add(test.scanner.nextInt());
+                }
+
+            }
+            test.solve(friends, days, available);
         }
     }
 

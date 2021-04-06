@@ -1,13 +1,29 @@
-package match.codeforces;
+package match.code_jam_2021;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class   Template {
+public class MoonsAndUmbrellas {
     MyScanner scanner = new MyScanner();
 
+    private int solve (String s, int cjCost, int jcCost) {
+        int cost = 0;
+        char prev = '?';
+        for (char c : s.toCharArray()) {
+            if (c != '?') {
+                if (c == 'J' && prev == 'C') {
+                    cost += cjCost;
+                }
+                else if (c == 'C' && prev == 'J') {
+                    cost += jcCost;
+                }
+                prev = c;
+            }
+        }
+        return cost;
+    }
 
     private void printArr(int[] arr) {
         StringBuilder sb = new StringBuilder();
@@ -18,10 +34,14 @@ public class   Template {
     }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        MoonsAndUmbrellas test = new MoonsAndUmbrellas();
         int t = test.scanner.nextInt();
-        for (int i = 0; i < t; i++) {
-            int n = test.scanner.nextInt();
+        for (int i = 1; i <= t; i++) {
+            String[] line = test.scanner.nextLine().split(" ");
+            int cjCost = Integer.valueOf(line[0]), jcCost = Integer.valueOf(line[1]);
+            String s = line[2];
+            int cost = test.solve(s, cjCost, jcCost);
+            System.out.println("Case #" + i + ": " + cost);
         }
     }
 

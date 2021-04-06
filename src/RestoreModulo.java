@@ -1,27 +1,22 @@
-package match.codeforces;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class   Template {
+public class RestoreModulo {
     MyScanner scanner = new MyScanner();
 
+    public void solve(int[] arr) {
 
-    private void printArr(int[] arr) {
-        StringBuilder sb = new StringBuilder();
-        for (int num : arr) {
-            sb.append(num + " ");
-        }
-        System.out.println(sb.substring(0, sb.length() - 1));
     }
 
     public static void main(String[] args) {
-        Template test = new Template();
+        RestoreModulo test = new RestoreModulo();
         int t = test.scanner.nextInt();
         for (int i = 0; i < t; i++) {
             int n = test.scanner.nextInt();
+            int[] arr = test.scanner.nextIntArray(n);
+            test.solve(arr);
         }
     }
 

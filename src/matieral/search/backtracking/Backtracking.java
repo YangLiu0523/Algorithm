@@ -1,4 +1,4 @@
-package matieral.search;
+package matieral.search.backtracking;
 import java.util.*;
 
 /**
